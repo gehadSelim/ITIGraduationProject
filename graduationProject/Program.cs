@@ -52,7 +52,6 @@ namespace graduationProject
             builder.Services.AddScoped<ITraderManager, TraderManager>();
             builder.Services.AddScoped<IRolesManager, RolesManager>();
             builder.Services.AddScoped<IUsersManger, UsersManger>();
-            builder.Services.AddScoped<IRolePrivilegesManger,RolePrivilegeManger>();
             builder.Services.AddScoped<RoleManager<Role>>();
             builder.Services.AddScoped<ValidatePermissionAttribute>();
 

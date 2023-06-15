@@ -204,7 +204,7 @@ namespace graduationProject.Bl.Managers
 
         }
 
-        public async Task<IEnumerable<RolePrivilegesReadDTO>> GetRolePrivilegesByUserId(string userId)
+        public async Task<IEnumerable<RolePrivilegesValidateDTO>> GetRolePrivilegesByUserId(string userId)
         {
             var employee = _repository.GetAllAsync().Result
                                       .Where(e => e.Id == userId)
@@ -213,7 +213,7 @@ namespace graduationProject.Bl.Managers
                                       .ThenInclude(rp => rp.Privilege)
                                       .FirstOrDefault();
 
-            var permissions = employee.Role.RolePrivileges.Select(r => new RolePrivilegesReadDTO
+            var permissions = employee.Role.RolePrivileges.Select(r => new RolePrivilegesValidateDTO
             {
                 Id = r.Id,
                 PermissionName = r.Privilege.Name,

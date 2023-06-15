@@ -27,7 +27,7 @@ namespace graduationProject.Filters
             var controllerName = context.Controller.GetType().Name.ToLower();
             string operation = string.Empty;
 
-            RolePrivilegesReadDTO permission = new RolePrivilegesReadDTO();
+            RolePrivilegesValidateDTO permission = new RolePrivilegesValidateDTO();
             var token = getToken(context);
             var userId = GetUserId(token);
             int permissionIndex = 0;

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace graduationProject.Bl.DTOs
 {
-    public class RolePrivilegesWriteDTO
+    public class RolePrivilegesValidateDTO
     {
-        public byte PrivilegeId { get; set; }
+        public int Id { get; set; }
+        public string PermissionName { get; set; } = string.Empty;
         public List<bool>? Permissions { get; set; } = new List<bool>();
-
     }
 }

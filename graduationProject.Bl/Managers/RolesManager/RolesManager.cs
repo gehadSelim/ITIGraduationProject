@@ -15,10 +15,11 @@ namespace graduationProject.Bl.Managers
     public class RolesManager : IRolesManager
     {
         private readonly RoleManager<Role> _roleManager;
-
-        public RolesManager(RoleManager<Role> roleManager)
+        private readonly IRepository<Role_Privileges> _rolesRepository;
+        public RolesManager(RoleManager<Role> roleManager, IRepository<Role_Privileges> rolesRepository)
         {
             _roleManager = roleManager;
+            _rolesRepository = rolesRepository;
         }
 
         public async Task<RoleWriteDTO> AddAsync(RoleWriteDTO entity)
@@ -30,10 +31,10 @@ namespace graduationProject.Bl.Managers
                 role_Privileges.Add(new()
                 {
                     PrivilegeId= item.PrivilegeId,
-                    AddPermission = item.AddPermission,
-                    DeletePermission = item.DeletePermission,
-                    EditPermission = item.EditPermission,
-                    ViewPermission = item.ViewPermission
+                    AddPermission = item.Permissions[0],
+                    ViewPermission = item.Permissions[1],
+                    EditPermission = item.Permissions[2],
+                    DeletePermission = item.Permissions[3]
                 });
             }
 
@@ -79,9 +80,9 @@ namespace graduationProject.Bl.Managers
                 RoleName = r.Name,
                 Permissions = r.RolePrivileges.Select(rp => new RolePrivilegesReadDTO()
                 {
-                    Id= rp.Id,
-                    PermissionName = rp.Privilege.ArabicName,
-                    Permissions = new List<bool> { rp.AddPermission , rp.ViewPermission , rp.EditPermission , rp.DeletePermission}
+                    Id = rp.Id,
+                    PrivilegeId = rp.PrivilegeId,
+                    Permissions = new List<bool> { rp.AddPermission, rp.ViewPermission, rp.EditPermission, rp.DeletePermission }
 
                 })
             });
@@ -90,31 +91,29 @@ namespace graduationProject.Bl.Managers
 
         public async Task<RoleUpdateDTO> UpdateAsync(RoleUpdateDTO role)
         {
-            var existingRole = await _roleManager.FindByIdAsync(role.RoleId);
+            var existingRole = _roleManager.Roles.Include(r => r.RolePrivileges).FirstOrDefault(r => r.Id == role.RoleId);
+
             if (existingRole == null)
             {
                 throw new Exception("Role is Not Found");
             }
 
-            List<Role_Privileges> role_Privileges = new List<Role_Privileges>();
+            _rolesRepository.DeleteRange(existingRole.RolePrivileges.ToList());
 
-            foreach (var item in role.RolePrivileges)
+            _rolesRepository.AddRange(role.RolePrivileges.Select(rp => new Role_Privileges
             {
-                role_Privileges.Add(new()
-                {
-                    Id = item.Id,
-                    PrivilegeId = item.PrivilegeId,
-                    AddPermission = item.AddPermission,
-                    DeletePermission = item.DeletePermission,
-                    EditPermission = item.EditPermission,
-                    ViewPermission = item.ViewPermission
-                });
-            }
+                RoleId = role.RoleId,
+                PrivilegeId = rp.PrivilegeId,
+                AddPermission = rp.Permissions[0],
+                ViewPermission = rp.Permissions[1],
+                EditPermission = rp.Permissions[2],
+                DeletePermission = rp.Permissions[3]
+            }).ToList());
+
+            _rolesRepository.SaveChanges();
 
             existingRole.Name = role.RoleName;
             existingRole.NormalizedName = role.RoleName.ToUpper();
-            existingRole.RolePrivileges = role_Privileges;
-
 
             var result = await _roleManager.UpdateAsync(existingRole);
             if (!result.Succeeded)
