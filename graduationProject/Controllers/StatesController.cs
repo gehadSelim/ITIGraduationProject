@@ -44,7 +44,7 @@ namespace graduationProject.Controllers
             return Ok(states);
         }
 
-        [HttpGet("{id}/cities")]
+        [HttpGet("cities/{id}")]
         public async Task<ActionResult<StateReadDTO>> GetStateByIdWithCities(int id)
         {
             var state = await _stateManager.GetStateByIdWithCitiesAsync(id);
