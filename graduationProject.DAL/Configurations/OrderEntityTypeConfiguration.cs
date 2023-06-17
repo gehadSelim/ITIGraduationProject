@@ -24,6 +24,10 @@ namespace graduationProject.DAL.Configurations
             builder
                 .Property(o => o.RepresentativeID)
                 .IsRequired(false);
+
+            builder
+                .Property(o => o.Comments)
+                .IsRequired(false);
         }
     }
 }

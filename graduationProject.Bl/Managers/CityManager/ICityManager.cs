@@ -10,9 +10,9 @@ namespace graduationProject.Bl.Managers.CityManager
 {
     public interface ICityManager
     {
-        Task<IEnumerable<CityReadDto>> GetAllAsync(string stateName);
+        Task<IEnumerable<CityReadSimpleDto>> GetAllAsync();
+        Task<IEnumerable<CityReadDto>> GetAllWithShippingCostAsync();
         Task<double> GetByIDAsync(int Cityid);
-
         Task<CityWriteDto> AddAsync(CityWriteDto entity);
         Task<CityUpdateDto> UpdateAsync(CityUpdateDto entity);
     }

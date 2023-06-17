@@ -44,20 +44,22 @@ namespace graduationProject.Bl.Managers
 
             List<SpecialPackage> specialPackages = new List<SpecialPackage>();
 
-            if(entity.SpecialPackages != null)
+            if (entity.SpecialPackages != null)
             {
-                foreach (var specialPackage in entity.SpecialPackages)
+                foreach (var specialPackage in entity.SpecialPackages.DistinctBy(s => s.CityId))
                 {
-                    specialPackages.Add(new ()
+
+                    specialPackages.Add(new()
                     {
                         StateId = specialPackage.StateId,
                         CityId = specialPackage.CityId,
                         ShippingCost = specialPackage.ShippingCost,
 
                     });
+
                 }
             }
-
+            
             Trader newTrader = new()
             {
                 Id = applicationUser.Id,
@@ -117,18 +119,39 @@ namespace graduationProject.Bl.Managers
                     Email = t.ApplicationUser.Email,
                     PhoneNumber = t.ApplicationUser.PhoneNumber,
                     Address = t.ApplicationUser.Address,
-                    Branch = t.Branch.Name,
+                    Branch = new()
+                    {
+                        Id = t.Branch.Id,
+                        Name= t.Branch.Name
+
+                    },
                     Status = t.ApplicationUser.Status,
                     Date = t.Date,
                     RejectedOrderlossRatio = t.RejectedOrderlossRatio,
                     StoreName = t.StoreName,
-                    City = t.City.Name,
-                    State = t.State.Name,
+                    City = new()
+                    {
+                        Id = t.City.Id,
+                        Name = t.City.Name,
+                    },
+                    State = new()
+                    {
+                        Id = t.State.Id,
+                        Name = t.State.Name
+                    },
                     SpecialPackages = t.SpecialPackages.Select(s => new SpecialPackageReadDTO {
                         Id = s.Id,
                         ShippingCost = s.ShippingCost,
-                        City = s.City.Name,
-                        State = s.State.Name
+                        City = new()
+                        {
+                            Id = s.City.Id,
+                            Name = s.City.Name,
+                        },
+                        State = new()
+                        {
+                            Id = s.State.Id,
+                            Name = s.State.Name
+                        }
                     })
                 });
             return result;
@@ -147,19 +170,40 @@ namespace graduationProject.Bl.Managers
                     Email = t.ApplicationUser.Email,
                     PhoneNumber = t.ApplicationUser.PhoneNumber,
                     Address = t.ApplicationUser.Address,
-                    Branch = t.Branch.Name,
                     Status = t.ApplicationUser.Status,
                     Date = t.Date,
                     RejectedOrderlossRatio = t.RejectedOrderlossRatio,
                     StoreName = t.StoreName,
-                    City = t.City.Name,
-                    State = t.State.Name,
+                    Branch = new()
+                    {
+                        Id = t.Branch.Id,
+                        Name = t.Branch.Name
+
+                    },
+                    City = new()
+                    {
+                        Id = t.City.Id,
+                        Name = t.City.Name,
+                    },
+                    State = new()
+                    {
+                        Id = t.State.Id,
+                        Name = t.State.Name
+                    },
                     SpecialPackages = t.SpecialPackages.Select(s => new SpecialPackageReadDTO
                     {
-                        Id= s.Id,
+                        Id = s.Id,
                         ShippingCost = s.ShippingCost,
-                        City = s.City.Name,
-                        State = s.State.Name
+                        City = new()
+                        {
+                            Id = s.City.Id,
+                            Name = s.City.Name,
+                        },
+                        State = new()
+                        {
+                            Id = s.State.Id,
+                            Name = s.State.Name
+                        }
                     })
                 });
             return result;
@@ -182,8 +226,16 @@ namespace graduationProject.Bl.Managers
                 {
                     Id = s.Id,
                     ShippingCost = s.ShippingCost,
-                    City = s.City.Name,
-                    State = s.State.Name,
+                    City = new()
+                    {
+                        Id = s.City.Id,
+                        Name = s.City.Name,
+                    },
+                    State = new()
+                    {
+                        Id = s.State.Id,
+                        Name = s.State.Name
+                    }
 
                 }).ToList();
             }
@@ -196,13 +248,13 @@ namespace graduationProject.Bl.Managers
                 Email = trader.ApplicationUser.Email,
                 PhoneNumber = trader.ApplicationUser.PhoneNumber,
                 Address = trader.ApplicationUser.Address,
-                Branch = trader.Branch.Name,
+                Branch = new() { Id = trader.BranchId, Name = trader.Branch.Name},
                 Status = trader.ApplicationUser.Status,
                 Date = trader.Date,
                 RejectedOrderlossRatio = trader.RejectedOrderlossRatio,
                 StoreName = trader.StoreName,
-                City = trader.City.Name,
-                State = trader.State.Name,
+                City = new() { Id = trader.CityId, Name = trader.City.Name },
+                State = new() { Id = trader.StateId, Name = trader.State.Name },
                 SpecialPackages = specialPackage
             };
             return result;
@@ -225,8 +277,16 @@ namespace graduationProject.Bl.Managers
                 {
                     Id = s.Id,
                     ShippingCost = s.ShippingCost,
-                    City = s.City.Name,
-                    State = s.State.Name,
+                    City = new()
+                    {
+                        Id = s.City.Id,
+                        Name = s.City.Name,
+                    },
+                    State = new()
+                    {
+                        Id = s.State.Id,
+                        Name = s.State.Name
+                    }
 
                 }).ToList();
             }
@@ -239,13 +299,13 @@ namespace graduationProject.Bl.Managers
                 Email = trader.ApplicationUser.Email,
                 PhoneNumber = trader.ApplicationUser.PhoneNumber,
                 Address = trader.ApplicationUser.Address,
-                Branch = trader.Branch.Name,
+                Branch = new() { Id = trader.BranchId, Name = trader.Branch.Name },
                 Status = trader.ApplicationUser.Status,
                 Date = trader.Date,
                 RejectedOrderlossRatio = trader.RejectedOrderlossRatio,
                 StoreName = trader.StoreName,
-                City = trader.City.Name,
-                State = trader.State.Name,
+                City = new() { Id = trader.CityId, Name = trader.City.Name },
+                State = new() { Id = trader.StateId, Name = trader.State.Name },
                 SpecialPackages = specialPackage
             };
             return result;

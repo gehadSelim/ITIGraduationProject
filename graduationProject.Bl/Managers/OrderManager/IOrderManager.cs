@@ -13,7 +13,7 @@ namespace graduationProject.Bl.Managers.OrderManager
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByTraderID(string Traderid); 
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByRepresentativeID(string RepresentativeID);
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByEmployee();
-        Task<IEnumerable<OrderReadDto>> GetAllAsNoTrackingAsync(
+        Task<PaginationDTO<OrderReadDto>> GetAllAsNoTrackingAsync(
           int pageNumber,
           int pageSize,
           OrderStatus Status = 0,

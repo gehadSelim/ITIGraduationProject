@@ -26,11 +26,12 @@ namespace graduationProject.Filters
             var method = context.HttpContext.Request.Method.ToLower();
             var controllerName = context.Controller.GetType().Name.ToLower();
             string operation = string.Empty;
-
-            RolePrivilegesValidateDTO permission = new RolePrivilegesValidateDTO();
             var token = getToken(context);
             var userId = GetUserId(token);
+            RolePrivilegesValidateDTO? permission = new RolePrivilegesValidateDTO();
             int permissionIndex = 0;
+
+            #region get permission
             if (!string.IsNullOrEmpty(userId))
             {
                 var permissions = _employeeManger.GetRolePrivilegesByUserId(userId).Result;
@@ -38,7 +39,14 @@ namespace graduationProject.Filters
                 {
                     permission = permissions.Where(p => controllerName.Contains(p.PermissionName.ToLower())).FirstOrDefault();
                 }
+                else
+                {
+                    permission = null;
+                }
             }
+            #endregion
+
+            #region set index
             switch (method)
             {
                 case "post":
@@ -58,6 +66,8 @@ namespace graduationProject.Filters
                     operation = "Delete";
                     break;
             }
+            #endregion
+
             if (permission == null || permission.Permissions[permissionIndex] == false)
             {
                 context.ModelState.AddModelError(controllerName, $"not authorized to {operation} {permission?.PermissionName}");
@@ -69,7 +79,6 @@ namespace graduationProject.Filters
         {
             return context.HttpContext.Request.Headers["Authorization"][0].Split(" ")[1];
         }
-
 
         string GetUserId(string token)
         {

@@ -12,7 +12,6 @@ namespace graduationProject.Bl.DTOs
         public string Id { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
-
         public string Email { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public byte BranchId { get; set; }

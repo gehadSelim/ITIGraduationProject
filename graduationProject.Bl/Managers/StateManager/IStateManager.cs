@@ -12,9 +12,12 @@ namespace graduationProject.Bl.Managers
     {
         Task<IEnumerable<StateReadDTO>> GetAllAsync();
         Task<IEnumerable<StateReadDTO>> GetAllActiveAsync();
+        Task<IEnumerable<StateReadSimpleDTO>> GetAllHavingCitiesAsync();
         Task<StateReadDTO> GetStateByIdWithCitiesAsync(int id);
         Task<StateWriteDTO> AddAsync(StateWriteDTO entity);
         Task<StateUpdateDTO> UpdateAsync(StateUpdateDTO entity);
+        int GetTotalPages(int pageSize);
+
     }
 
 }

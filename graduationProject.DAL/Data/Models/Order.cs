@@ -56,6 +56,7 @@ namespace graduationProject.DAL.Data.Models
         public virtual Representative? Representative { get; set; }
         public double? ReceivedCost { get; set; }
         public double? ReceivedShipingCost { get; set; }
+        public string Comments { get; set; } = string.Empty;
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
 
     }

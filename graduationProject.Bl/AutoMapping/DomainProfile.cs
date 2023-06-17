@@ -23,6 +23,12 @@ namespace graduationProject.Bl.AutoMapping
 
             CreateMap<OrderItem, OrderItemWriteDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemReadDto>().ReverseMap();
+
+            CreateMap<ShippingType, ShippingTypeReadDTO>().ReverseMap();
+            CreateMap<Branch, BranchReadSimpleDTO>().ReverseMap();
+            CreateMap<State, StateReadSimpleDTO>().ReverseMap();
+            CreateMap<City, CitySimpleDTO>().ReverseMap();
+            CreateMap<City, CityReadSimpleDto>().ReverseMap();
         }
     }
 }

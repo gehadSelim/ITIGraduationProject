@@ -130,9 +130,7 @@ namespace graduationProject.Controllers
 
         private async Task<OrderWriteNewStatusDto> InsertOrder(OrderWriteNewStatusDto entity)
         {
-            entity.TotalWeight = entity.OrderItems.Select(oI => oI.ProductWeight * oI.ProductQuntity).Sum();
-
-            entity.OrderCost = entity.OrderItems.Select(oI => oI.ProductPrice * oI.ProductQuntity).Sum();
+            entity.TotalWeight = entity.OrderItems.Select(oI => oI.ProductWeight * oI.ProductQuantity).Sum();
 
             double shippingCost = await traderManager.GetShippingCostAsync(entity.TraderId, entity.CityId);
             if (shippingCost == 0)

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace graduationProject.Bl.DTOs
 {
-    public class BranchReadDTO
+    public class CityReadSimpleDto
     {
-        public byte Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public DateTime Date { get; set; } = DateTime.Now;
-        public bool Status { get; set; } = true;
+        public byte StateId { get; set; }
     }
 }

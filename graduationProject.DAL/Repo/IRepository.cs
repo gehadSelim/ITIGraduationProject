@@ -20,7 +20,8 @@ public interface IRepository<T> where T : class
         Expression<Func<T, bool>>? criteria = null);
 
 
-        Task<T> GetByIdAsync(int id); 
+    Task<T> GetByIdAsync(int id);
+    int GetTotalPages(int pageSize);
     Task<T> GetByCriteriaAsync(Expression<Func<T,bool>> criteria, string[]? includes = null);
     Task<bool> AddAsync(T entity);
     Task<T> UpdateAsync(T entity);  

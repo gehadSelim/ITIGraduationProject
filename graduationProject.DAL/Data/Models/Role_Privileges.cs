@@ -12,7 +12,7 @@ namespace graduationProject.DAL.Data.Models
         public int Id { get; set; }
 
         [ForeignKey("Role")]
-        public string? RoleId { get; set; }
+        public string RoleId { get; set; } = string.Empty;
         public virtual Role? Role { get; set; }
 
         [ForeignKey("Privilege")]

@@ -29,6 +29,7 @@ namespace graduationProject.Bl.DTOs.OrderDto
         public DateTime Date { get; set; } = DateTime.Now;
         public string TraderId { get; set; } = string.Empty;
         public string RepresentativeID { get; set; } = string.Empty;
+        public string? Comments { get; set; }
         public OrderStatus OrderStatus { get; set; } = OrderStatus.New;
         public virtual ICollection<OrderItemWriteDto> OrderItems { get; set; } = new HashSet<OrderItemWriteDto>();
 

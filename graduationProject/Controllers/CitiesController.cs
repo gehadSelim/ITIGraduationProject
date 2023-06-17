@@ -27,10 +27,18 @@ namespace graduationProject.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{stateName}")]
-        public async Task<IActionResult> GetAllCities(string stateName)
+        [HttpGet]
+        public async Task<IActionResult> GetAllCities()
         {
-            var cities = await _cityManager.GetAllAsync(stateName);
+            var cities = await _cityManager.GetAllAsync();
+            return Ok(cities);
+        }
+
+        [HttpGet]
+        [Route("GetCitiesWithShippingCost")]
+        public async Task<IActionResult> GetAllCitiesWithShippingCost()
+        {
+            var cities = await _cityManager.GetAllWithShippingCostAsync();
             return Ok(cities);
         }
 

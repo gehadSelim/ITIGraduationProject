@@ -54,6 +54,17 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public async Task<IEnumerable<StateReadSimpleDTO>> GetAllHavingCitiesAsync()
+        {
+            var states = await _repository.GetAllAsync(new[] { "City" });
+            var result = states.Where(s => s.Status == true && s.City.Count > 0 ).Select(s => new StateReadSimpleDTO
+            {
+                Id = s.Id,
+                Name = s.Name,
+            });
+            return result;
+        }
+
         public async Task<StateReadDTO> GetStateByIdWithCitiesAsync(int id)
         {
             var result = await _repository.GetByCriteriaAsync(s => s.Id == id, new[] { "City" });
@@ -72,6 +83,11 @@ namespace graduationProject.Bl.Managers
             };
 
             return stateReadDTO;
+        }
+
+        public int GetTotalPages(int pageSize)
+        {
+            return _repository.GetTotalPages(pageSize);
         }
 
         public async Task<StateUpdateDTO> UpdateAsync(StateUpdateDTO entity)

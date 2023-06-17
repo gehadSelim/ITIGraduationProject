@@ -11,8 +11,8 @@ namespace graduationProject.Bl.DTOs
     public class SpecialPackageReadDTO
     {
         public int Id { get; set; }
-        public string? City  { get; set; }
-        public string? State { get; set; }
+        public CitySimpleDTO? City  { get; set; }
+        public StateReadSimpleDTO? State { get; set; }
         public double ShippingCost { get; set; }
     }
 }

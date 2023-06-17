@@ -21,7 +21,7 @@ namespace graduationProject.Bl.Managers.OrderManager
             _orderItemRepository = orderItemRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<OrderReadDto>> GetAllAsNoTrackingAsync(
+        public async Task<PaginationDTO<OrderReadDto>> GetAllAsNoTrackingAsync(
           int pageNumber,
           int pageSize,
           OrderStatus Status = 0,
@@ -31,37 +31,45 @@ namespace graduationProject.Bl.Managers.OrderManager
             Expression<Func<Order, bool>> expression = o => o.OrderStatus == Status;
 
             if (startdateTime != null && enddateTime != null)
-                 expression = o => o.OrderStatus == Status && o.Date.Date >= startdateTime.Value.Date && o.Date.Date <= enddateTime.Value.Date;
+                expression = o => o.OrderStatus == Status && o.Date.Date >= startdateTime.Value.Date && o.Date.Date <= enddateTime.Value.Date;
 
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "OrderItems" },
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" },
                 expression);
 
-            return _mapper.Map<IList<OrderReadDto>>(entity);
+            int totalPages = _repository.GetTotalPages(pageSize);
+
+            PaginationDTO<OrderReadDto> result = new()
+            {
+                TotalPages = totalPages,
+                Data = _mapper.Map<IList<OrderReadDto>>(entity)
+            };
+
+            return result;
         }
         public async Task<IEnumerable<OrderReadDto>> GetByTraderIDAsync(int pageNumber, int pageSize ,string Traderid)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "OrderItems" }, T => T.TraderId == Traderid);
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }, T => T.TraderId == Traderid);
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
 
         public async Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDAsync(int pageNumber, int pageSize, string Representativeid)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "OrderItems" }, R => R.RepresentativeID == Representativeid);
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }, R => R.RepresentativeID == Representativeid);
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
 
         public async Task<IEnumerable<OrderReadDto>> GetByEmployeeIDAsync(int pageNumber, int pageSize)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "OrderItems" });
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" });
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
         public async Task<OrderReadDto> GetByIdAsync(int id)
         {
-            var entity = await _repository.GetByCriteriaAsync(a => a.Id == id, new[] { "OrderItems" });
+            var entity = await _repository.GetByCriteriaAsync(o => o.Id == id, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" });
             return _mapper.Map<OrderReadDto>(entity);
         }
 

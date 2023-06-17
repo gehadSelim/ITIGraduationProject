@@ -44,6 +44,14 @@ namespace graduationProject.Controllers
             return Ok(states);
         }
 
+        [HttpGet("HavingCities")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<ActionResult<IEnumerable<StateReadDTO>>> GetAllStatesHavingCities()
+        {
+            var states = await _stateManager.GetAllHavingCitiesAsync();
+            return Ok(states);
+        }
+
         [HttpGet("cities/{id}")]
         public async Task<ActionResult<StateReadDTO>> GetStateByIdWithCities(int id)
         {
@@ -62,6 +70,12 @@ namespace graduationProject.Controllers
             stateDTO.Id = id;
             var updatedState = await _stateManager.UpdateAsync(stateDTO);
             return Ok(updatedState);
+        }
+
+        [HttpGet("totalPages")]
+        public IActionResult GetTotalPages(int pageSize)
+        {
+            return Ok(_stateManager.GetTotalPages(pageSize));
         }
     }
 }

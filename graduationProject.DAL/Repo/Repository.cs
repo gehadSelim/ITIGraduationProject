@@ -113,6 +113,12 @@ public class Repository<T> : IRepository<T> where T : class
         return await query.Skip(skip).Take(take).AsNoTracking().ToListAsync();
     }
 
+    public int GetTotalPages(int pageSize)
+    {
+        int totalRecords = _dbSet.Count(); 
+        int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+        return totalPages;
+    }
     public IEnumerable<TResult> GetGrouped<TKey, TResult>(Expression<Func<T, TKey>> groupingKey, Expression<Func<IGrouping<TKey, T>, TResult>> resultSelector, Expression<Func<T, bool>>? criteria = null)
     {
         var query = _dbSet.AsQueryable();

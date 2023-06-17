@@ -213,6 +213,11 @@ namespace graduationProject.Bl.Managers
                                       .ThenInclude(rp => rp.Privilege)
                                       .FirstOrDefault();
 
+            if (employee == null)
+            {
+                return null;
+            }
+
             var permissions = employee.Role.RolePrivileges.Select(r => new RolePrivilegesValidateDTO
             {
                 Id = r.Id,

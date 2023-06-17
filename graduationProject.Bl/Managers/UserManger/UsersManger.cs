@@ -19,16 +19,17 @@ namespace graduationProject.Bl.Managers
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public UsersManger(IConfiguration configuration , UserManager<ApplicationUser> userManager)
+        private readonly IEmployeeManager _employeeManager;
+        public UsersManger(IConfiguration configuration, UserManager<ApplicationUser> userManager, IEmployeeManager employeeManager)
         {
             _configuration = configuration;
             _userManager = userManager;
+            _employeeManager = employeeManager;
         }
         public async Task<TokenDTO> Login(LoginDTO loginDTO)
         {
             ApplicationUser? user;
-            if(loginDTO.UserName == null)
+            if (loginDTO.UserName == null)
             {
                 throw new Exception("You Have to Enter UserName Or Email");
 
@@ -43,7 +44,7 @@ namespace graduationProject.Bl.Managers
                     throw new Exception("User Not Found");
                 }
             }
-            
+
             bool isPasswordCorrect = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
 
             if (!isPasswordCorrect)
@@ -75,11 +76,18 @@ namespace graduationProject.Bl.Managers
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenString = tokenHandler.WriteToken(jwt);
 
+            string userId = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            string userName = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
+            string role = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+
+            var permissions = _employeeManager.GetRolePrivilegesByUserId(userId).Result;
+
             return new TokenDTO(
                     tokenString,
-                    claimsList.FirstOrDefault(c=> c.Type == ClaimTypes.UserData).Value,
-                    claimsList.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value,
-                    expiry
+                    userName,
+                    userId,
+                    expiry,
+                    permissions
                 );
         }
     }

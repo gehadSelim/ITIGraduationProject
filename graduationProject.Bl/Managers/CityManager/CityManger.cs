@@ -32,17 +32,28 @@ namespace graduationProject.Bl.Managers.CityManager
             return entity;
         }
 
-        public async Task<IEnumerable<CityReadDto>> GetAllAsync(string stateName)
+        public async Task<IEnumerable<CityReadSimpleDto>> GetAllAsync()
         {
-            var cities = await _repository.GetAllAsync(new[] {"State"});
-            var result = cities.Where(c => c.State.Name == stateName)
-                               .Select(c => new CityReadDto
+            var cities = await _repository.GetAllAsync();
+            var result = cities.Select(c => new CityReadSimpleDto
                                {
                                    Id = c.Id,
                                    Name = c.Name,
-                                   ShippingCost = c.ShipingCost,
                                    StateId = c.StateId
                                }).ToList();
+            return result;
+        }
+
+        public async Task<IEnumerable<CityReadDto>> GetAllWithShippingCostAsync()
+        {
+            var cities = await _repository.GetAllAsync();
+            var result = cities.Select(c => new CityReadDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                ShippingCost = c.ShipingCost,
+                StateId = c.StateId
+            }).ToList();
             return result;
         }
 

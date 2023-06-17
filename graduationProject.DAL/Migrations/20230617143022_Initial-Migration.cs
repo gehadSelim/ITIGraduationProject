@@ -301,7 +301,7 @@ namespace graduationProject.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PrivilegeId = table.Column<byte>(type: "tinyint", nullable: false),
                     AddPermission = table.Column<bool>(type: "bit", nullable: false),
                     EditPermission = table.Column<bool>(type: "bit", nullable: false),
@@ -441,7 +441,8 @@ namespace graduationProject.DAL.Migrations
                     OrderStatus = table.Column<int>(type: "int", nullable: false),
                     RepresentativeID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ReceivedCost = table.Column<double>(type: "float", nullable: true, defaultValue: 0.0),
-                    ReceivedShipingCost = table.Column<double>(type: "float", nullable: true, defaultValue: 0.0)
+                    ReceivedShipingCost = table.Column<double>(type: "float", nullable: true, defaultValue: 0.0),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -462,8 +463,7 @@ namespace graduationProject.DAL.Migrations
                         name: "FK_Orders_Representatives_RepresentativeID",
                         column: x => x.RepresentativeID,
                         principalTable: "Representatives",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_ShippingTypes_ShippingTypeId",
                         column: x => x.ShippingTypeId,
@@ -503,7 +503,7 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SpecialPackages_States_StateId",
                         column: x => x.StateId,
@@ -525,9 +525,8 @@ namespace graduationProject.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductPrice = table.Column<double>(type: "float", nullable: false),
                     ProductWeight = table.Column<double>(type: "float", nullable: false),
-                    ProductQuntity = table.Column<int>(type: "int", nullable: false),
+                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -544,17 +543,17 @@ namespace graduationProject.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Date", "Discriminator", "Name", "NormalizedName" },
-                values: new object[] { "9a01655f-dff1-418c-a744-81c0f5fe5654", null, new DateTime(2023, 6, 14, 17, 46, 24, 73, DateTimeKind.Local).AddTicks(7709), "Role", "SuperAdmin", "SUPERADMIN" });
+                values: new object[] { "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", null, new DateTime(2023, 6, 17, 17, 30, 20, 651, DateTimeKind.Local).AddTicks(8430), "Role", "SuperAdmin", "SUPERADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2c913ede-3729-41bb-ab2e-9790754228af", 0, "Banha", "d63bad22-6197-4416-bc67-d39cf14578ff", "super_admin@shipping.com", false, "Aya Ahmed Mahmoud", false, null, "SUPER_ADMIN@SHIPPING.COM", "SUPERADMIN", "AQAAAAIAAYagAAAAEEL9OJjhhg3hahBrWBQHByhDGgT3bDCafPrs2qND97Z+lpu366HVLj9eQrKprSytrQ==", "01090370531", false, "55460dce-7e2f-4abb-a3d8-2f87a7f9115d", true, false, "SuperAdmin" });
+                values: new object[] { "18e128db-018e-4a2b-b974-1e4595a7d2d1", 0, "Banha", "19ec114a-87c8-4175-adce-f0f66ed84c87", "super_admin@shipping.com", false, "Aya Ahmed Mahmoud", false, null, "SUPER_ADMIN@SHIPPING.COM", "SUPERADMIN", "AQAAAAIAAYagAAAAEAYz2BVe/j9uMfWL3AmnP84SsnF5FyRHgiXe2sO0FF8xyj6oNz3eKjAYTOIBGroBcw==", "01090370531", false, "926fed66-106e-4ca2-9266-f1c71b2b3088", true, false, "SuperAdmin" });
 
             migrationBuilder.InsertData(
                 table: "Branches",
                 columns: new[] { "Id", "Date", "Name", "Status" },
-                values: new object[] { (byte)1, new DateTime(2023, 6, 14, 17, 46, 24, 225, DateTimeKind.Local).AddTicks(293), "Main Branch", true });
+                values: new object[] { (byte)1, new DateTime(2023, 6, 17, 17, 30, 20, 879, DateTimeKind.Local).AddTicks(555), "Main Branch", true });
 
             migrationBuilder.InsertData(
                 table: "Privileges",
@@ -586,39 +585,39 @@ namespace graduationProject.DAL.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
                 values: new object[,]
                 {
-                    { -3, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "9a01655f-dff1-418c-a744-81c0f5fe5654", "2c913ede-3729-41bb-ab2e-9790754228af" },
-                    { -2, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "SuperAdmin", "2c913ede-3729-41bb-ab2e-9790754228af" },
-                    { -1, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "2c913ede-3729-41bb-ab2e-9790754228af", "2c913ede-3729-41bb-ab2e-9790754228af" }
+                    { -3, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", "18e128db-018e-4a2b-b974-1e4595a7d2d1" },
+                    { -2, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "SuperAdmin", "18e128db-018e-4a2b-b974-1e4595a7d2d1" },
+                    { -1, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "18e128db-018e-4a2b-b974-1e4595a7d2d1", "18e128db-018e-4a2b-b974-1e4595a7d2d1" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "9a01655f-dff1-418c-a744-81c0f5fe5654", "2c913ede-3729-41bb-ab2e-9790754228af" });
+                values: new object[] { "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", "18e128db-018e-4a2b-b974-1e4595a7d2d1" });
 
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "ApplicationUserId", "BranchId", "Date", "RoleId" },
-                values: new object[] { "2c913ede-3729-41bb-ab2e-9790754228af", "2c913ede-3729-41bb-ab2e-9790754228af", (byte)1, new DateTime(2023, 6, 14, 17, 46, 24, 225, DateTimeKind.Local).AddTicks(408), "9a01655f-dff1-418c-a744-81c0f5fe5654" });
+                values: new object[] { "18e128db-018e-4a2b-b974-1e4595a7d2d1", "18e128db-018e-4a2b-b974-1e4595a7d2d1", (byte)1, new DateTime(2023, 6, 17, 17, 30, 20, 879, DateTimeKind.Local).AddTicks(715), "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53" });
 
             migrationBuilder.InsertData(
                 table: "Role_Privileges",
                 columns: new[] { "Id", "AddPermission", "DeletePermission", "EditPermission", "PrivilegeId", "RoleId", "ViewPermission" },
                 values: new object[,]
                 {
-                    { -13, true, true, true, (byte)13, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -12, true, true, true, (byte)12, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -11, true, true, true, (byte)11, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -10, true, true, true, (byte)10, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -9, true, true, true, (byte)9, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -8, true, true, true, (byte)8, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -7, true, true, true, (byte)7, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -6, true, true, true, (byte)6, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -5, true, true, true, (byte)5, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -4, true, true, true, (byte)4, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -3, true, true, true, (byte)3, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -2, true, true, true, (byte)2, "9a01655f-dff1-418c-a744-81c0f5fe5654", true },
-                    { -1, true, true, true, (byte)1, "9a01655f-dff1-418c-a744-81c0f5fe5654", true }
+                    { -13, true, true, true, (byte)13, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -12, true, true, true, (byte)12, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -11, true, true, true, (byte)11, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -10, true, true, true, (byte)10, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -9, true, true, true, (byte)9, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -8, true, true, true, (byte)8, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -7, true, true, true, (byte)7, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -6, true, true, true, (byte)6, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -5, true, true, true, (byte)5, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -4, true, true, true, (byte)4, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -3, true, true, true, (byte)3, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -2, true, true, true, (byte)2, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
+                    { -1, true, true, true, (byte)1, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true }
                 });
 
             migrationBuilder.CreateIndex(
