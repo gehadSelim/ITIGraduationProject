@@ -91,7 +91,7 @@ public class Repository<T> : IRepository<T> where T : class
         _context.SaveChanges();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsNoTrackingAsync(
+    public async Task<IQueryable<T>> GetAllAsNoTrackingAsync(
           int pageNumber, int pageSize
         , string[]? includes = null
         , Expression<Func<T, bool>>? criteria = null)
@@ -110,7 +110,7 @@ public class Repository<T> : IRepository<T> where T : class
             query = query.Where(criteria);
         }
 
-        return await query.Skip(skip).Take(take).AsNoTracking().ToListAsync();
+        return query.Skip(skip).Take(take).AsNoTracking();
     }
 
     public int GetTotalPages(int pageSize)

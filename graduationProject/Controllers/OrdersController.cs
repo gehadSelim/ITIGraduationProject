@@ -48,16 +48,16 @@ namespace graduationProject.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllAsNoTrakingAsync")]
+        [Route("GetAllReportAsNoTrakingAsync")]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
-        public async Task<IActionResult> GetAllAsNoTrakingAsync(
+        public async Task<IActionResult> GetAllReportAsNoTrakingAsync(
           int pageNumber = 1, 
           int pageSize = 10,
           OrderStatus status = 0,
           DateTime? startdateTime = null,
           DateTime? enddateTime = null)
         {
-            return Ok(await orderManager.GetAllAsNoTrackingAsync(pageNumber, pageSize, status, startdateTime, enddateTime));
+            return Ok(await orderManager.GetAllReportAsNoTrackingAsync(pageNumber, pageSize, status, startdateTime, enddateTime));
         }
 
         [HttpGet]

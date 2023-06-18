@@ -18,6 +18,7 @@ namespace graduationProject.Bl.AutoMapping
         {
             CreateMap<Order, OrderWriteNewStatusDto>().ReverseMap();
             CreateMap<Order, OrderReadDto>().ReverseMap();
+            CreateMap<Order, OrderReportDto>().ReverseMap();
             CreateMap<Order, OrderUpdateStatusOnlyDto>().ReverseMap();
             CreateMap<Order, OrderUpdateStatusGiveRepresentativeDto>().ReverseMap();
 
@@ -29,6 +30,7 @@ namespace graduationProject.Bl.AutoMapping
             CreateMap<State, StateReadSimpleDTO>().ReverseMap();
             CreateMap<City, CitySimpleDTO>().ReverseMap();
             CreateMap<City, CityReadSimpleDto>().ReverseMap();
+            CreateMap<Trader, TraderSimpleReadDTO>().ReverseMap();
         }
     }
 }

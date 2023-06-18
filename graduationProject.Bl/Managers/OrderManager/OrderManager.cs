@@ -6,6 +6,7 @@ using graduationProject.Bl.DTOs.CityDTO;
 using graduationProject.Bl.DTOs;
 using graduationProject.Shared.Enums;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace graduationProject.Bl.Managers.OrderManager
 {
@@ -21,7 +22,7 @@ namespace graduationProject.Bl.Managers.OrderManager
             _orderItemRepository = orderItemRepository;
             _mapper = mapper;
         }
-        public async Task<PaginationDTO<OrderReadDto>> GetAllAsNoTrackingAsync(
+        public async Task<PaginationDTO<OrderReportDto>?> GetAllReportAsNoTrackingAsync(
           int pageNumber,
           int pageSize,
           OrderStatus Status = 0,
@@ -34,15 +35,42 @@ namespace graduationProject.Bl.Managers.OrderManager
                 expression = o => o.OrderStatus == Status && o.Date.Date >= startdateTime.Value.Date && o.Date.Date <= enddateTime.Value.Date;
 
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" },
-                expression);
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems", "Representative" },
+                expression).Result.Include(o=>o.Trader).ThenInclude(t=>t.ApplicationUser).ToListAsync();
 
+            if(entity == null)
+            {
+                return null;
+            }
+
+            var data = _mapper.Map<IList<OrderReportDto>>(entity);
+
+            #region setting company order ratio
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                {
+                    if (entity[i].Representative.DiscountType == DiscountType.PrecentRatio)
+                    {
+                        data[i].CompanyOrderRatio = data[i].OrderShipingCost - data[i].OrderShipingCost * (entity[i].Representative.CompanyOrderRatio / 100);
+                    }
+                    else
+                    {
+                        data[i].CompanyOrderRatio = entity[i].Representative.CompanyOrderRatio;
+                    }
+                }
+
+            }              
+            #endregion
             int totalPages = _repository.GetTotalPages(pageSize);
 
-            PaginationDTO<OrderReadDto> result = new()
+            PaginationDTO<OrderReportDto> result = new()
             {
                 TotalPages = totalPages,
-                Data = _mapper.Map<IList<OrderReadDto>>(entity)
+                Data = data
             };
 
             return result;
@@ -84,7 +112,7 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var order = _repository.GetByIdAsync(entity.Id).Result;
             var Model = _mapper.Map<Order>(order);
-            Model.OrderStatus = entity.OrderStatus;
+            Model.OrderStatus = OrderStatus.RepresentitiveDelivered;
             Model.RepresentativeID = entity.RepresentativeID;
             await _repository.UpdateAsync(Model);
             _repository.SaveChanges();

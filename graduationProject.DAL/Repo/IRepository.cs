@@ -10,7 +10,7 @@ namespace graduationProject.DAL;
 public interface IRepository<T> where T : class
 {
     Task<IQueryable<T>> GetAllAsync(string[]? includes = null);
-    Task<IEnumerable<T>> GetAllAsNoTrackingAsync(
+    Task<IQueryable<T>> GetAllAsNoTrackingAsync(
           int skip, int take
         , string[]? includes = null
         , Expression<Func<T, bool>>? criteria=null);
