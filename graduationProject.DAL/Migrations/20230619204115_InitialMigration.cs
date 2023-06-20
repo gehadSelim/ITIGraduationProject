@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace graduationProject.DAL.Migrations
 {
     /// <inheritdoc />
@@ -538,86 +536,6 @@ namespace graduationProject.DAL.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Date", "Discriminator", "Name", "NormalizedName" },
-                values: new object[] { "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", null, new DateTime(2023, 6, 17, 17, 30, 20, 651, DateTimeKind.Local).AddTicks(8430), "Role", "SuperAdmin", "SUPERADMIN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "18e128db-018e-4a2b-b974-1e4595a7d2d1", 0, "Banha", "19ec114a-87c8-4175-adce-f0f66ed84c87", "super_admin@shipping.com", false, "Aya Ahmed Mahmoud", false, null, "SUPER_ADMIN@SHIPPING.COM", "SUPERADMIN", "AQAAAAIAAYagAAAAEAYz2BVe/j9uMfWL3AmnP84SsnF5FyRHgiXe2sO0FF8xyj6oNz3eKjAYTOIBGroBcw==", "01090370531", false, "926fed66-106e-4ca2-9266-f1c71b2b3088", true, false, "SuperAdmin" });
-
-            migrationBuilder.InsertData(
-                table: "Branches",
-                columns: new[] { "Id", "Date", "Name", "Status" },
-                values: new object[] { (byte)1, new DateTime(2023, 6, 17, 17, 30, 20, 879, DateTimeKind.Local).AddTicks(555), "Main Branch", true });
-
-            migrationBuilder.InsertData(
-                table: "Privileges",
-                columns: new[] { "Id", "ArabicName", "Name" },
-                values: new object[,]
-                {
-                    { (byte)1, "الصلاحيات", "Privileges" },
-                    { (byte)2, "الاعدادات", "Settings" },
-                    { (byte)3, "البنوك", "Banks" },
-                    { (byte)4, "الخزن", "safes" },
-                    { (byte)5, "الافرع", "Branches" },
-                    { (byte)6, "الموظفين", "Employees" },
-                    { (byte)7, "التجار", "Traders" },
-                    { (byte)8, "المناديب", "Representatives" },
-                    { (byte)9, "المحافظات", "States" },
-                    { (byte)10, "المدن", "Cities" },
-                    { (byte)11, "الطلبات", "Orders" },
-                    { (byte)12, "الحسابات", "Calculations" },
-                    { (byte)13, "تقارير الطلبات", "OrdersReports" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Settings",
-                columns: new[] { "Id", "DefaultWeight", "OverCostPerKG", "VillageShipingCost" },
-                values: new object[] { (byte)1, 0.0, 0.0, 0.0 });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserClaims",
-                columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[,]
-                {
-                    { -3, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", "18e128db-018e-4a2b-b974-1e4595a7d2d1" },
-                    { -2, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "SuperAdmin", "18e128db-018e-4a2b-b974-1e4595a7d2d1" },
-                    { -1, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "18e128db-018e-4a2b-b974-1e4595a7d2d1", "18e128db-018e-4a2b-b974-1e4595a7d2d1" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", "18e128db-018e-4a2b-b974-1e4595a7d2d1" });
-
-            migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "Id", "ApplicationUserId", "BranchId", "Date", "RoleId" },
-                values: new object[] { "18e128db-018e-4a2b-b974-1e4595a7d2d1", "18e128db-018e-4a2b-b974-1e4595a7d2d1", (byte)1, new DateTime(2023, 6, 17, 17, 30, 20, 879, DateTimeKind.Local).AddTicks(715), "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53" });
-
-            migrationBuilder.InsertData(
-                table: "Role_Privileges",
-                columns: new[] { "Id", "AddPermission", "DeletePermission", "EditPermission", "PrivilegeId", "RoleId", "ViewPermission" },
-                values: new object[,]
-                {
-                    { -13, true, true, true, (byte)13, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -12, true, true, true, (byte)12, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -11, true, true, true, (byte)11, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -10, true, true, true, (byte)10, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -9, true, true, true, (byte)9, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -8, true, true, true, (byte)8, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -7, true, true, true, (byte)7, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -6, true, true, true, (byte)6, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -5, true, true, true, (byte)5, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -4, true, true, true, (byte)4, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -3, true, true, true, (byte)3, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -2, true, true, true, (byte)2, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true },
-                    { -1, true, true, true, (byte)1, "a32097a5-6e92-4fde-bfd3-fb2f5b5f6b53", true }
                 });
 
             migrationBuilder.CreateIndex(
