@@ -11,6 +11,6 @@ namespace graduationProject.Bl.DTOs.CityDTO
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public double ShippingCost { get; set; }
-        public byte StateId { get; set; }
+        public StateReadSimpleDTO? State { get; set; }
     }
 }

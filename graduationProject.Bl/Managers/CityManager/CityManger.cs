@@ -46,13 +46,17 @@ namespace graduationProject.Bl.Managers.CityManager
 
         public async Task<IEnumerable<CityReadDto>> GetAllWithShippingCostAsync()
         {
-            var cities = await _repository.GetAllAsync();
+            var cities = await _repository.GetAllAsync(new[] { "State" });
             var result = cities.Select(c => new CityReadDto
             {
                 Id = c.Id,
                 Name = c.Name,
                 ShippingCost = c.ShipingCost,
-                StateId = c.StateId
+                State = new()
+                {
+                    Id = c.StateId,
+                    Name = c.State.Name
+                }
             }).ToList();
             return result;
         }
