@@ -15,6 +15,7 @@ using graduationProject.Filters;
 using graduationProject.Bl.AutoMapping;
 using graduationProject.Bl.Managers.OrderManager;
 using System.Security.Claims;
+using graduationProject.MiddleWares;
 
 namespace graduationProject
 {
@@ -128,7 +129,7 @@ namespace graduationProject
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.MapControllers();
 
             app.Run();
