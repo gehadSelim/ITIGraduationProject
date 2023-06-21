@@ -360,30 +360,23 @@ namespace graduationProject.Bl.Managers
                 throw new Exception("Failed to update user");
             }
 
-            List<SpecialPackage> specialPackages = new List<SpecialPackage>();
+            Trader updatedTrader = await _repository.GetByCriteriaAsync(r => r.Id == entity.Id);
 
-            if (entity.SpecialPackages != null)
+            _sprepository.DeleteRange(updatedTrader.SpecialPackages.ToList());
+
+            _sprepository.AddRange(entity.SpecialPackages.Select(s => new SpecialPackage
             {
-                foreach (var specialPackage in entity.SpecialPackages)
-                {
-                    specialPackages.Add(new()
-                    {
-                        Id = specialPackage.Id,
-                        StateId = specialPackage.StateId,
-                        CityId = specialPackage.CityId,
-                        ShippingCost = specialPackage.ShippingCost,
-                    });
-                }
-            }
-
-            Trader updatedTrader = await _repository.GetByCriteriaAsync(r => (r.Id == entity.Id));
+                TraderId = entity.Id,
+                StateId = s.StateId,
+                CityId = s.CityId,
+                ShippingCost = s.ShippingCost
+            }).ToList());
 
             updatedTrader.BranchId = entity.BranchId;
             updatedTrader.StateId = entity.StateId;
             updatedTrader.CityId = entity.CityId;
             updatedTrader.RejectedOrderlossRatio = entity.RejectedOrderlossRatio;
             updatedTrader.StoreName = entity.StoreName;
-            updatedTrader.SpecialPackages = specialPackages;
 
             #region update claims 
 

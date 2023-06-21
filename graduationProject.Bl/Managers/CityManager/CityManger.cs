@@ -76,7 +76,7 @@ namespace graduationProject.Bl.Managers.CityManager
                 Id = oldCity.Id,
                 Name = entity.Name,
                 ShipingCost = entity.ShippingCost,
-                StateId = oldCity.StateId
+                StateId = entity.StateId
             };
            await _repository.UpdateAsync(updatedEntity);
             _repository.SaveChanges();
