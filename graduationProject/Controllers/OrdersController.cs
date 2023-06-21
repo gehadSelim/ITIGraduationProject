@@ -37,14 +37,13 @@ namespace graduationProject.Controllers
         }
 
 
-        [HttpGet("GetAllOrderPaymentTypeAndOrderStatusAndOrderTypeDto")]
-        public IActionResult GetAllOrderPaymentTypeAndOrderStatusAndOrderTypeDto()
+        [HttpGet("GetAllOrderPaymentTypeAndOrderTypeDto")]
+        public IActionResult GetAllOrderPaymentTypeAndAndOrderTypeDto()
         {
-            OrderPaymentTypeAndOrderStatusAndOrderTypeDto orderPaymentTypeAndOrderStatusAndOrderTypeDto = new ();
-            orderPaymentTypeAndOrderStatusAndOrderTypeDto.PaymentType = EnumExtensions.GetValues<PaymentType>();
-            orderPaymentTypeAndOrderStatusAndOrderTypeDto.OrderStatus = EnumExtensions.GetValues<OrderStatus>();
-            orderPaymentTypeAndOrderStatusAndOrderTypeDto.OrderType = EnumExtensions.GetValues<OrderType>();
-            return Ok(orderPaymentTypeAndOrderStatusAndOrderTypeDto);
+            OrderPaymentTypeAndOrderTypeDto orderPaymentTypeAndOrderTypeDto = new ();
+            orderPaymentTypeAndOrderTypeDto.PaymentType = EnumExtensions.GetValues<PaymentType>();
+            orderPaymentTypeAndOrderTypeDto.OrderType = EnumExtensions.GetValues<OrderType>();
+            return Ok(orderPaymentTypeAndOrderTypeDto);
         }
 
         [HttpGet]
@@ -71,7 +70,7 @@ namespace graduationProject.Controllers
         [HttpGet]
         [Route("GetAllByTraderIDAsNoTrakingAsync")]
         [Authorize(Policy = "TradersOnly")]
-        public async Task<IActionResult> GetAllTraderAsNoTrakingAsync( string TraderID , int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> GetAllTraderAsNoTrakingAsync(string TraderID , int pageNumber = 1, int pageSize = 10)
         {
             return Ok(await orderManager.GetByTraderIDAsync(pageNumber, pageSize, TraderID));
         }
@@ -83,7 +82,31 @@ namespace graduationProject.Controllers
         {
             return Ok(await orderManager.GetByEmployeeIDAsync(pageNumber, pageSize));
         }
-        
+
+        [HttpGet]
+        [Route("GetAllByRepresentativeIDWithStatusAsNoTrakingAsync")]
+        [Authorize(Policy = "RepresentativeOnly")]
+        public async Task<IActionResult> GetAllRepresentativeWithStatusAsNoTrakingAsync(string RepresentativeID,OrderStatus orderStatus, int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await orderManager.GetByRepresentativeIDWithStatusAsync(pageNumber, pageSize, RepresentativeID, orderStatus));
+        }
+
+        [HttpGet]
+        [Route("GetAllByTraderIDWithStatusAsNoTrakingAsync")]
+        [Authorize(Policy = "TradersOnly")]
+        public async Task<IActionResult> GetAllTraderWithStatusAsNoTrakingAsync(string TraderID, OrderStatus orderStatus, int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await orderManager.GetByTraderIDWithStatusAsync(pageNumber, pageSize, TraderID, orderStatus));
+        }
+
+        [HttpGet]
+        [Route("GetAllByEmployeeWithStatusAsNoTrakingAsync")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> GetAllEmployeeWithStatusAsNoTrakingAsync( OrderStatus orderStatus,int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await orderManager.GetByEmployeeIDWithStatusAsync(pageNumber, pageSize, orderStatus));
+        }
+
         [HttpGet]
         [Route("GetAllByRepresentativeIDGroupByStatusAsync")]
         [Authorize(Policy = "RepresentativeOnly")]

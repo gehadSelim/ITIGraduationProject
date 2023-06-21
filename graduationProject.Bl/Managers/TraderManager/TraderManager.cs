@@ -318,6 +318,24 @@ namespace graduationProject.Bl.Managers
             return CitySpecialPackage.ShippingCost;
         }
 
+        public async Task<TraderUpdateStatusDTO> UpdateStatusAsync(TraderUpdateStatusDTO entity)
+        {
+            var oldApplicationUser = await _userManager.FindByIdAsync(entity.Id);
+            if (oldApplicationUser == null)
+            {
+                throw new Exception("Failed to find user");
+            }
+            oldApplicationUser.Status = entity.Status;
+
+            var result = await _userManager.UpdateAsync(oldApplicationUser);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception("Failed to update user");
+            }
+            return entity;
+        }
+
         public async Task<TraderUpdateDTO> UpdateAsync(TraderUpdateDTO entity)
         {
             var oldApplicationUser = await _userManager.FindByIdAsync(entity.Id);
@@ -332,8 +350,8 @@ namespace graduationProject.Bl.Managers
             oldApplicationUser.Email = entity.Email;
             oldApplicationUser.PhoneNumber = entity.PhoneNumber;
             oldApplicationUser.Address = entity.Address;
-            oldApplicationUser.Status = entity.Status;
-            oldApplicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(oldApplicationUser, entity.Password);
+            if (!string.IsNullOrEmpty(entity.Password))
+                oldApplicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(oldApplicationUser, entity.Password);
 
             var result = await _userManager.UpdateAsync(oldApplicationUser);
 

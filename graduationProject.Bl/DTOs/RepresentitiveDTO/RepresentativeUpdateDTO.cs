@@ -18,7 +18,6 @@ namespace graduationProject.Bl.DTOs
         public List<RepresentativeStateUptateDTO> States { get; set; } = new List<RepresentativeStateUptateDTO>();
         public string Password { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
-        public bool Status { get; set; }
         public DiscountType DiscountType { get; set; }
         public double CompanyOrderRatio { get; set; }
     }

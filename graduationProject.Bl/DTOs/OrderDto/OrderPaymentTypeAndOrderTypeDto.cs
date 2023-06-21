@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace graduationProject.Bl.DTOs.OrderDto
 {
-    public class OrderPaymentTypeAndOrderStatusAndOrderTypeDto
+    public class OrderPaymentTypeAndOrderTypeDto
     {
         public List<EnumValue>? PaymentType { get; set; }
-        public List<EnumValue>? OrderStatus { get; set; }
         public List<EnumValue>? OrderType { get; set; }
     }
 }

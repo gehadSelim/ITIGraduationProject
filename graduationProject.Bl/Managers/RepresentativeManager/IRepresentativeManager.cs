@@ -15,6 +15,7 @@ namespace graduationProject.Bl.Managers
         Task<IEnumerable<RepresentativeReadDTO>> GetAllActiveAsync();
         Task<IEnumerable<RepresentativeSimpleReadDTO>> GetAllActiveByStateIdAsync(int StateId);
         Task<RepresentativeWriteDTO> AddAsync(RepresentativeWriteDTO entity);
+        Task<RepresentativeUpdateStatusDTO> UpdateStatusAsync(RepresentativeUpdateStatusDTO entity);
         Task<RepresentativeUpdateDTO> UpdateAsync(RepresentativeUpdateDTO entity);
     }
 }

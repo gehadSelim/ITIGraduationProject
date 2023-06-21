@@ -70,5 +70,13 @@ namespace graduationProject.Controllers
             var result = await _representativeManager.UpdateAsync(RepresentativeDTO);
             return Ok(result);
         }
+
+        [HttpPut("status/{id}")]
+        public async Task<IActionResult> UpdateRepresentativeStatus(string id, RepresentativeUpdateStatusDTO RepresentativeDTO)
+        {
+            RepresentativeDTO.Id = id;
+            var result = await _representativeManager.UpdateStatusAsync(RepresentativeDTO);
+            return Ok(result);
+        }
     }
 }

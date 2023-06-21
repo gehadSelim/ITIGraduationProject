@@ -65,5 +65,13 @@ namespace graduationProject.Controllers
             var result = await _employeeManager.UpdateAsync(employeeDTO);
             return Ok(result);
         }
+
+        [HttpPut("status/{id}")]
+        public async Task<IActionResult> UpdateEmployeeStatus(string id, EmployeeUpdateStatusDTO employeeDTO)
+        {
+            employeeDTO.Id = id;
+            var result = await _employeeManager.UpdateStatusAsync(employeeDTO);
+            return Ok(result);
+        }
     }
 }

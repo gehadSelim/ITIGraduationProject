@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using graduationProject.Shared.Enums;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace graduationProject.Bl.Managers
 {
@@ -53,6 +56,11 @@ namespace graduationProject.Bl.Managers
         public async Task<IEnumerable<BranchReadDTO>> GetAllAsync()
         {
             var branches = await _repository.GetAllAsync();
+
+            if (branches == null)
+            {
+                return null;
+            }
             var result = branches.Select(b => new BranchReadDTO
             {
                 Id = b.Id,
@@ -62,6 +70,25 @@ namespace graduationProject.Bl.Managers
             });
             return result;
         }
+
+        //public async Task<PaginationDTO<BranchReadDTO>?> GetAllAsNoTrackingAsync(int pageNumber, int pageSize)
+        //{
+        //    var branches = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize);
+
+        //    if (branches == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    int totalPages = _repository.GetTotalPages(pageSize);
+        //    PaginationDTO<BranchReadDTO> result = new()
+        //    {
+        //        TotalPages = totalPages,
+        //        Data = branches
+        //    };
+
+        //    return result;
+        //}
 
         public async Task<BranchReadDTO> GetByIdAsync(byte id)
         {

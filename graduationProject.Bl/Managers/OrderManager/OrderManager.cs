@@ -75,26 +75,52 @@ namespace graduationProject.Bl.Managers.OrderManager
 
             return result;
         }
-        public async Task<IEnumerable<OrderReadDto>> GetByTraderIDAsync(int pageNumber, int pageSize ,string Traderid)
+        public async Task<IEnumerable<OrderReadDto>> GetByTraderIDAsync(int pageNumber, int pageSize, string Traderid)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }, T => T.TraderId == Traderid);
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                , T => T.TraderId == Traderid);
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
 
         public async Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDAsync(int pageNumber, int pageSize, string Representativeid)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }, R => R.RepresentativeID == Representativeid);
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                , R => R.RepresentativeID == Representativeid );
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
 
         public async Task<IEnumerable<OrderReadDto>> GetByEmployeeIDAsync(int pageNumber, int pageSize)
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
-                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" });
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                );
             return _mapper.Map<IList<OrderReadDto>>(entity);
         }
+        public async Task<IEnumerable<OrderReadDto>> GetByTraderIDWithStatusAsync(int pageNumber, int pageSize ,string Traderid, OrderStatus orderStatus)
+        {
+            var entity = await _repository.GetAllAsNoTrackingAsync(
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                , T => T.TraderId == Traderid && T.OrderStatus == orderStatus);
+            return _mapper.Map<IList<OrderReadDto>>(entity);
+        }
+        public async Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDWithStatusAsync(int pageNumber, int pageSize, string Representativeid, OrderStatus orderStatus )
+        {
+            var entity = await _repository.GetAllAsNoTrackingAsync(
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                , R => R.RepresentativeID == Representativeid && R.OrderStatus == orderStatus);
+            return _mapper.Map<IList<OrderReadDto>>(entity);
+        }
+        public async Task<IEnumerable<OrderReadDto>> GetByEmployeeIDWithStatusAsync(int pageNumber, int pageSize,OrderStatus orderStatus)
+        {
+            var entity = await _repository.GetAllAsNoTrackingAsync(
+                pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
+                ,E => E.OrderStatus == orderStatus);
+            return _mapper.Map<IList<OrderReadDto>>(entity);
+        }
+
+
         public async Task<OrderReadDto> GetByIdAsync(int id)
         {
             var entity = await _repository.GetByCriteriaAsync(o => o.Id == id, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" });
@@ -172,7 +198,7 @@ namespace graduationProject.Bl.Managers.OrderManager
                 e => e.OrderStatus
                 , g => new OrderGroupByKeyValueDto 
                 { 
-                    OrderStatus = g.Key.ToString(),
+                    OrderStatus = g.Key,
                     NumberOrder = g.Count() 
                 }
                 ,t=>t.TraderId==Traderid);
@@ -185,7 +211,7 @@ namespace graduationProject.Bl.Managers.OrderManager
                            e => e.OrderStatus
                            , g => new OrderGroupByKeyValueDto
                            {
-                               OrderStatus = g.Key.ToString(),
+                               OrderStatus = g.Key,
                                NumberOrder = g.Count()
                            }
                            , t => t.RepresentativeID==RepresentativeID );
@@ -198,7 +224,7 @@ namespace graduationProject.Bl.Managers.OrderManager
                                     e => e.OrderStatus
                                     , g => new OrderGroupByKeyValueDto
                                     {
-                                        OrderStatus = g.Key.ToString(),
+                                        OrderStatus = g.Key,
                                         NumberOrder = g.Count()
                                     }
                                     );

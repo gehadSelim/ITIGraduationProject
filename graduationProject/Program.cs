@@ -71,6 +71,9 @@ namespace graduationProject
                        options.Password.RequireDigit = true;
                        options.Password.RequiredLength = 8;
                        options.User.RequireUniqueEmail = true;
+                       options.User.AllowedUserNameCharacters = options.User.AllowedUserNameCharacters +
+                                                                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+*?^$()[]{}|/اأإآبتثجحخهعغفقصضطكمنيئسشدظزوةىرؤءذل~!#%=";
+
                    })
                    .AddEntityFrameworkStores<ShippingSystemContext>();
             #endregion

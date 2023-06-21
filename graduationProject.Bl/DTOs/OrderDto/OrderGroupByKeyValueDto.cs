@@ -9,7 +9,7 @@ namespace graduationProject.Bl.DTOs.OrderDto
 {
     public class OrderGroupByKeyValueDto
     {
-        public string OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         public int NumberOrder { get; set; }
     }
 }

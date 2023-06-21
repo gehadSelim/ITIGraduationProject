@@ -1,6 +1,7 @@
 ﻿using graduationProject.Bl.DTOs;
 using graduationProject.Bl.DTOs.OrderDto;
 using graduationProject.Shared.Enums;
+using System.Threading.Tasks;
 
 namespace graduationProject.Bl.Managers.OrderManager
 {
@@ -10,6 +11,9 @@ namespace graduationProject.Bl.Managers.OrderManager
         Task<IEnumerable<OrderReadDto>> GetByTraderIDAsync(int pageNumber, int pageSize ,string Traderid);
         Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDAsync(int pageNumber, int pageSize ,string Representativeid);
         Task<IEnumerable<OrderReadDto>> GetByEmployeeIDAsync(int pageNumber, int pageSize );
+        Task<IEnumerable<OrderReadDto>> GetByTraderIDWithStatusAsync(int pageNumber, int pageSize, string Traderid,OrderStatus orderStatus);
+        Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDWithStatusAsync(int pageNumber, int pageSize, string Representativeid, OrderStatus orderStatus);
+        Task<IEnumerable<OrderReadDto>> GetByEmployeeIDWithStatusAsync(int pageNumber, int pageSize, OrderStatus orderStatus);
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByTraderID(string Traderid); 
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByRepresentativeID(string RepresentativeID);
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByEmployee();

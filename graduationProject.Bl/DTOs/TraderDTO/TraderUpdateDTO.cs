@@ -19,7 +19,6 @@ namespace graduationProject.Bl.DTOs
         public int CityId { get; set; }
         public string Password { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
-        public bool Status { get; set; }
         public string StoreName { get; set; } = string.Empty;
         public double RejectedOrderlossRatio { get; set; }
         public ICollection<SpecialPackageUpdateDTO>? SpecialPackages { get; set; }

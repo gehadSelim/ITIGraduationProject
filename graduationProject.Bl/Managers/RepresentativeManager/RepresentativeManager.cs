@@ -210,6 +210,24 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public async Task<RepresentativeUpdateStatusDTO> UpdateStatusAsync(RepresentativeUpdateStatusDTO entity)
+        {
+            var oldApplicationUser = await _userManager.FindByIdAsync(entity.Id);
+            if (oldApplicationUser == null)
+            {
+                throw new Exception("Failed to find user");
+            }
+            oldApplicationUser.Status = entity.Status;
+
+            var result = await _userManager.UpdateAsync(oldApplicationUser);
+
+            if (!result.Succeeded)
+            {
+                throw new Exception("Failed to update user");
+            }
+            return entity;
+        }
+
         public async Task<RepresentativeUpdateDTO> UpdateAsync(RepresentativeUpdateDTO entity)
         {
             var oldApplicationUser = await _userManager.FindByIdAsync(entity.Id);
@@ -224,8 +242,8 @@ namespace graduationProject.Bl.Managers
             oldApplicationUser.Email = entity.Email;
             oldApplicationUser.PhoneNumber = entity.PhoneNumber;
             oldApplicationUser.Address = entity.Address;
-            oldApplicationUser.Status = entity.Status;
-            oldApplicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(oldApplicationUser, entity.Password);
+            if (!string.IsNullOrEmpty(entity.Password))
+                oldApplicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(oldApplicationUser, entity.Password);
 
             var result = await _userManager.UpdateAsync(oldApplicationUser);
 
@@ -237,7 +255,7 @@ namespace graduationProject.Bl.Managers
             Representative updatedRepresentative = await _repository.GetByCriteriaAsync(r => (r.Id == entity.Id), new[] { "RepresentativeStates" });
 
             _staterepository.DeleteRange(updatedRepresentative.RepresentativeStates.ToList());
-            // Add the new representative states to the updated representative object
+           
             _staterepository.AddRange(entity.States.Select(s => new RepresentativeState
             {
                 RepresentativeId = entity.Id,

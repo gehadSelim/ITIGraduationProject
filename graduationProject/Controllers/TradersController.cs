@@ -69,6 +69,15 @@ namespace graduationProject.Controllers
             return Ok(result);
         }
 
+        [HttpPut("status/{id}")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> UpdateTraderStatus(string id, TraderUpdateStatusDTO TraderDTO)
+        {
+            TraderDTO.Id = id;
+            var result = await _traderManager.UpdateStatusAsync(TraderDTO);
+            return Ok(result);
+        }
+
         [HttpDelete("specialPackage/{id}")]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
         public IActionResult DeleteSpecialPackage(int id)

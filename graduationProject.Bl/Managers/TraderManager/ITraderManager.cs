@@ -15,6 +15,7 @@ namespace graduationProject.Bl.Managers
         Task<IEnumerable<TraderReadDTO>> GetAllAsync();
         Task<IEnumerable<TraderReadDTO>> GetAllActiveAsync();
         Task<TraderWriteDTO> AddAsync(TraderWriteDTO entity);
+        Task<TraderUpdateStatusDTO> UpdateStatusAsync(TraderUpdateStatusDTO entity);
         Task<TraderUpdateDTO> UpdateAsync(TraderUpdateDTO entity);
         void DeleteTraderSpecialPackages(int specialPackageId);
     }
