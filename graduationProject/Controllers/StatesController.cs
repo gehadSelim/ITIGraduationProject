@@ -30,7 +30,7 @@ namespace graduationProject.Controllers
         }
 
         [HttpGet("active")]
-        public async Task<ActionResult<IEnumerable<StateReadDTO>>> GetAllActiveStates()
+        public async Task<ActionResult<IEnumerable<StateReadSimpleDTO>>> GetAllActiveStates()
         {
             var states = await _stateManager.GetAllActiveAsync();
             return Ok(states);
@@ -46,7 +46,7 @@ namespace graduationProject.Controllers
 
         [HttpGet("HavingCities")]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
-        public async Task<ActionResult<IEnumerable<StateReadDTO>>> GetAllStatesHavingCities()
+        public async Task<ActionResult<IEnumerable<StateReadSimpleDTO>>> GetAllStatesHavingCities()
         {
             var states = await _stateManager.GetAllHavingCitiesAsync();
             return Ok(states);

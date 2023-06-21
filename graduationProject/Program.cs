@@ -69,7 +69,7 @@ namespace graduationProject
                        options.Password.RequireUppercase = false;
                        options.Password.RequireLowercase = false;
                        options.Password.RequireNonAlphanumeric = false;
-                       options.Password.RequireDigit = false;
+                       options.Password.RequireDigit = true;
                        options.Password.RequiredLength = 8;
                        options.User.RequireUniqueEmail = true;
                        options.User.AllowedUserNameCharacters = options.User.AllowedUserNameCharacters +
@@ -130,6 +130,7 @@ namespace graduationProject
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.MapControllers();
 
             app.Run();

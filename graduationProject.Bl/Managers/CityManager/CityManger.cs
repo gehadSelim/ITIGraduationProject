@@ -34,13 +34,13 @@ namespace graduationProject.Bl.Managers.CityManager
 
         public async Task<IEnumerable<CityReadSimpleDto>> GetAllAsync()
         {
-            var cities = await _repository.GetAllAsync();
+            var cities = await _repository.GetAllAsync().Result.Where(c=>c.Status == true).ToListAsync();
             var result = cities.Select(c => new CityReadSimpleDto
                                {
                                    Id = c.Id,
                                    Name = c.Name,
                                    StateId = c.StateId
-                               }).ToList();
+                               });
             return result;
         }
 
@@ -51,6 +51,7 @@ namespace graduationProject.Bl.Managers.CityManager
             {
                 Id = c.Id,
                 Name = c.Name,
+                Status = c.Status,
                 ShippingCost = c.ShipingCost,
                 State = new()
                 {
@@ -70,15 +71,22 @@ namespace graduationProject.Bl.Managers.CityManager
 
         public async Task<CityUpdateDto> UpdateAsync(CityUpdateDto entity)
         {
-            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id);  
-            City updatedEntity = new()
+            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id, new[] {"State"} );  
+
+            if(entity.Status == true && oldCity.State.Status == true)
             {
-                Id = oldCity.Id,
-                Name = entity.Name,
-                ShipingCost = entity.ShippingCost,
-                StateId = entity.StateId
-            };
-           await _repository.UpdateAsync(updatedEntity);
+                oldCity.Status = true;
+            }
+            else
+            {
+                oldCity.Status = false;
+            }
+
+            oldCity.Name = entity.Name;
+            oldCity.ShipingCost = entity.ShippingCost;
+            oldCity.StateId = entity.StateId;
+
+           await _repository.UpdateAsync(oldCity);
             _repository.SaveChanges();
             return entity;
         }

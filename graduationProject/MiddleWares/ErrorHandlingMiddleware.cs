@@ -17,7 +17,6 @@
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.Error.WriteLine(ex);
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "text/plain";

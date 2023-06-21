@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,11 @@ namespace graduationProject.DAL.Configurations
             builder
                 .Property(st => st.Name)
                 .HasColumnType("nvarchar(75)");
+
+            builder
+                .HasIndex(st => st.Name)
+                .IsUnique();
+
             builder.
                 Property(st => st.Id)
                 .UseIdentityColumn();

@@ -26,18 +26,25 @@ namespace graduationProject.Bl.Managers
                 Name = entity.Name
             };
             await _repository.AddAsync(newState);
-            _repository.SaveChanges();
+            try
+            {
+                _repository.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.InnerException.Message);
+            }
+            
             return entity;
         }
 
-        public async Task<IEnumerable<StateReadDTO>> GetAllActiveAsync()
+        public async Task<IEnumerable<StateReadSimpleDTO>> GetAllActiveAsync()
         {
             var states = await _repository.GetAllAsync();
-            var result = states.Where( s => s.Status == true).Select(s => new StateReadDTO
+            var result = states.Where( s => s.Status == true).Select(s => new StateReadSimpleDTO
             {
                 Id = s.Id,
                 Name = s.Name,
-                Status = s.Status
             });
             return result;
         }
@@ -54,21 +61,13 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
-        public async Task<IEnumerable<StateReadDTO>> GetAllHavingCitiesAsync()
+        public async Task<IEnumerable<StateReadSimpleDTO>> GetAllHavingCitiesAsync()
         {
             var states = await _repository.GetAllAsync(new[] { "City" });
-            var result = states.Where(s => s.Status == true && s.City.Count > 0 ).Select(s => new StateReadDTO
+            var result = states.Where(s => s.Status == true && s.City.Count > 0 ).Select(s => new StateReadSimpleDTO
             {
                 Id = s.Id,
                 Name = s.Name,
-                Status= s.Status,
-                City = s.City.Select(c => new CityReadSimpleDto()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    StateId = c.StateId
-                }).ToList()
-
             });
             return result;
         }
@@ -82,10 +81,11 @@ namespace graduationProject.Bl.Managers
                 Id = result.Id,
                 Name = result.Name,
                 Status = result.Status,
-                City = result.City.Select(c => new CityReadSimpleDto() {
+                City = result.City.Select(c => new CityReadDto() {
                     Id = c.Id,
                     Name = c.Name,
-                    StateId = c.StateId
+                    ShippingCost = c.ShipingCost,
+                    Status= c.Status
                 }).ToList()
             };
 
@@ -99,13 +99,19 @@ namespace graduationProject.Bl.Managers
 
         public async Task<StateUpdateDTO> UpdateAsync(StateUpdateDTO entity)
         {
-            State updatedEntity = new()
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                Status = entity.Status
-            };
-            await _repository.UpdateAsync(updatedEntity);
+            var oldEntity = await _repository.GetByCriteriaAsync(s => s.Id == entity.Id, new[] { "City" });
+
+            if(oldEntity.Status != entity.Status) 
+            { 
+                foreach(var city in oldEntity.City)
+                {
+                    city.Status = entity.Status;
+                }
+            }
+            oldEntity.Name = entity.Name;
+            oldEntity.Status = entity.Status;
+            
+            await _repository.UpdateAsync(oldEntity);
             _repository.SaveChanges();
             return entity;
         }

@@ -11,7 +11,7 @@ namespace graduationProject.Bl.Managers
     public interface IStateManager
     {
         Task<IEnumerable<StateReadDTO>> GetAllAsync();
-        Task<IEnumerable<StateReadDTO>> GetAllActiveAsync();
+        Task<IEnumerable<StateReadSimpleDTO>> GetAllActiveAsync();
         Task<IEnumerable<StateReadSimpleDTO>> GetAllHavingCitiesAsync();
         Task<StateReadDTO> GetStateByIdWithCitiesAsync(int id);
         Task<StateWriteDTO> AddAsync(StateWriteDTO entity);

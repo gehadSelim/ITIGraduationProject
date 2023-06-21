@@ -17,6 +17,7 @@ namespace graduationProject.Bl.Managers
         Task<EmployeeUpdateStatusDTO> UpdateStatusAsync(EmployeeUpdateStatusDTO entity);
         Task<EmployeeUpdateDTO> UpdateAsync(EmployeeUpdateDTO entity);
         Task<IEnumerable<RolePrivilegesValidateDTO>> GetRolePrivilegesByUserId(string userId);
+        Task<Dictionary<string, List<bool>>> GetPermissionsByUserId(string userId);
 
     }
 }

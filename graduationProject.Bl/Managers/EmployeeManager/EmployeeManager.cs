@@ -87,7 +87,11 @@ namespace graduationProject.Bl.Managers
                     Email = e.ApplicationUser.Email,
                     PhoneNumber = e.ApplicationUser.PhoneNumber,
                     Address = e.ApplicationUser.Address,
-                    Branch = e.Branch.Name,
+                    Branch = new()
+                    {
+                        Id = e.BranchId,
+                        Name = e.Branch.Name
+                    },
                     Status = e.ApplicationUser.Status,
                     Date = e.Date,
                     RoleName = e.Role.Name
@@ -108,7 +112,11 @@ namespace graduationProject.Bl.Managers
                     Email = e.ApplicationUser.Email,
                     PhoneNumber = e.ApplicationUser.PhoneNumber,
                     Address = e.ApplicationUser.Address,
-                    Branch = e.Branch.Name,
+                    Branch = new()
+                    {
+                        Id = e.BranchId,
+                        Name = e.Branch.Name
+                    },
                     Status = e.ApplicationUser.Status,
                     Date = e.Date,
                     RoleName = e.Role.Name
@@ -128,7 +136,11 @@ namespace graduationProject.Bl.Managers
                 Email = employee.ApplicationUser.Email,
                 PhoneNumber = employee.ApplicationUser.PhoneNumber,
                 Address = employee.ApplicationUser.Address,
-                Branch = employee.Branch.Name,
+                Branch = new()
+                {
+                    Id = employee.BranchId,
+                    Name = employee.Branch.Name
+                },
                 Status = employee.ApplicationUser.Status,
                 Date = employee.Date,
                 RoleName = employee.Role.Name
@@ -148,7 +160,11 @@ namespace graduationProject.Bl.Managers
                 Email = employee.ApplicationUser.Email,
                 PhoneNumber = employee.ApplicationUser.PhoneNumber,
                 Address = employee.ApplicationUser.Address,
-                Branch = employee.Branch.Name,
+                Branch = new()
+                {
+                    Id = employee.BranchId,
+                    Name = employee.Branch.Name
+                },
                 Status = employee.ApplicationUser.Status,
                 Date = employee.Date,
                 RoleName = employee.Role.Name
@@ -219,6 +235,34 @@ namespace graduationProject.Bl.Managers
             _repository.SaveChanges();
 
             return entity;
+
+        }
+
+        public async Task<Dictionary<string, List<bool>>> GetPermissionsByUserId(string userId)
+        {
+            var employee = _repository.GetAllAsync().Result
+                                      .Where(e => e.Id == userId)
+                                      .Include(e => e.Role)
+                                      .ThenInclude(r => r.RolePrivileges)
+                                      .ThenInclude(rp => rp.Privilege)
+                                      .FirstOrDefault();
+
+            if (employee == null)
+            {
+                return null;
+            }
+
+            var permissionsDic = employee.Role.RolePrivileges.ToDictionary(
+            rp => rp.Privilege.Name,
+            rp => new List<bool>
+            {
+                rp.AddPermission,
+                rp.ViewPermission,
+                rp.EditPermission,
+                rp.DeletePermission
+            });
+
+            return permissionsDic;
 
         }
 

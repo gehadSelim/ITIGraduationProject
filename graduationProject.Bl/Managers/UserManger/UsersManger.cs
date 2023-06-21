@@ -80,7 +80,7 @@ namespace graduationProject.Bl.Managers
             string userName = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
             string role = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
 
-            var permissions = _employeeManager.GetRolePrivilegesByUserId(userId).Result;
+            var permissions = _employeeManager.GetPermissionsByUserId(userId).Result;
 
             return new TokenDTO(
                     tokenString,

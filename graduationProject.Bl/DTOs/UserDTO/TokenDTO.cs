@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace graduationProject.Bl.DTOs
 {
-    public record TokenDTO(string token, string userName, string userId, DateTime expireDate, IEnumerable<RolePrivilegesValidateDTO>? permissions);
+    public record TokenDTO(string token, string userName, string userId, DateTime expireDate, Dictionary<string, List<bool>>? permissions);
 }

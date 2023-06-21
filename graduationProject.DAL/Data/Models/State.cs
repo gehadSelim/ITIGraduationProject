@@ -1,4 +1,6 @@
-﻿namespace graduationProject.DAL.Data.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace graduationProject.DAL.Data.Models
 {
     public class State
     {
