@@ -95,7 +95,11 @@ namespace graduationProject.Bl.Managers
                     Email = r.ApplicationUser.Email,
                     PhoneNumber = r.ApplicationUser.PhoneNumber,
                     Address = r.ApplicationUser.Address,
-                    Branch = r.Branch.Name,
+                    Branch = new()
+                    {
+                        Id = r.BranchId,
+                        Name = r.Branch.Name
+                    },
                     Status = r.ApplicationUser.Status,
                     Date = r.Date,
                     CompanyOrderRatio= r.CompanyOrderRatio,
@@ -137,7 +141,11 @@ namespace graduationProject.Bl.Managers
                     Email = r.ApplicationUser.Email,
                     PhoneNumber = r.ApplicationUser.PhoneNumber,
                     Address = r.ApplicationUser.Address,
-                    Branch = r.Branch.Name,
+                    Branch = new()
+                    {
+                        Id = r.BranchId,
+                        Name = r.Branch.Name
+                    },
                     Status = r.ApplicationUser.Status,
                     Date = r.Date,
                     CompanyOrderRatio = r.CompanyOrderRatio,
@@ -167,7 +175,11 @@ namespace graduationProject.Bl.Managers
                 Email = representative.ApplicationUser.Email,
                 PhoneNumber = representative.ApplicationUser.PhoneNumber,
                 Address = representative.ApplicationUser.Address,
-                Branch = representative.Branch.Name,
+                Branch = new()
+                {
+                    Id = representative.BranchId,
+                    Name = representative.Branch.Name
+                },
                 Status = representative.ApplicationUser.Status,
                 Date = representative.Date,
                 DiscountType = representative.DiscountType,
@@ -196,7 +208,11 @@ namespace graduationProject.Bl.Managers
                 Email = representative.ApplicationUser.Email,
                 PhoneNumber = representative.ApplicationUser.PhoneNumber,
                 Address = representative.ApplicationUser.Address,
-                Branch = representative.Branch.Name,
+                Branch = new()
+                {
+                    Id = representative.BranchId,
+                    Name = representative.Branch.Name
+                },
                 Status = representative.ApplicationUser.Status,
                 Date = representative.Date,
                 DiscountType = representative.DiscountType,
