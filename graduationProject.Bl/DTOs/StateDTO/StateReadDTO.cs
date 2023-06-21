@@ -13,6 +13,6 @@ namespace graduationProject.Bl.DTOs
         public byte Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public bool Status { get; set; } = true;
-        public ICollection<CityReadDto>? City { get; set; }
+        public ICollection<CityReadSimpleDto>? City { get; set; }
     }
 }

@@ -74,10 +74,9 @@ namespace graduationProject.Bl.Managers
                 Id = result.Id,
                 Name = result.Name,
                 Status = result.Status,
-                City = result.City.Select(c => new CityReadDto() {
+                City = result.City.Select(c => new CityReadSimpleDto() {
                     Id = c.Id,
                     Name = c.Name,
-                    ShippingCost = c.ShipingCost,
                     StateId = c.StateId
                 }).ToList()
             };
