@@ -54,13 +54,21 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
-        public async Task<IEnumerable<StateReadSimpleDTO>> GetAllHavingCitiesAsync()
+        public async Task<IEnumerable<StateReadDTO>> GetAllHavingCitiesAsync()
         {
             var states = await _repository.GetAllAsync(new[] { "City" });
-            var result = states.Where(s => s.Status == true && s.City.Count > 0 ).Select(s => new StateReadSimpleDTO
+            var result = states.Where(s => s.Status == true && s.City.Count > 0 ).Select(s => new StateReadDTO
             {
                 Id = s.Id,
                 Name = s.Name,
+                Status= s.Status,
+                City = s.City.Select(c => new CityReadSimpleDto()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    StateId = c.StateId
+                }).ToList()
+
             });
             return result;
         }
