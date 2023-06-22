@@ -36,6 +36,7 @@ namespace graduationProject.Controllers
 
         [HttpGet]
         [Route("GetCitiesWithShippingCost")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<IActionResult> GetAllCitiesWithShippingCost()
         {
             var cities = await _cityManager.GetAllWithShippingCostAsync();

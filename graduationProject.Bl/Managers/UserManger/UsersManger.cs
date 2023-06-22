@@ -79,15 +79,22 @@ namespace graduationProject.Bl.Managers
             string userId = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
             string userName = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.UserData).Value;
             string role = claimsList.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
-
+          
             var permissions = _employeeManager.GetPermissionsByUserId(userId).Result;
+
+            string userType;
+            if (role == "Trader" || role == "Representative")
+                userType = role;
+            else
+                userType = "Employee";
 
             return new TokenDTO(
                     tokenString,
                     userName,
                     userId,
                     expiry,
-                    permissions
+                    permissions,
+                    userType
                 );
         }
     }
