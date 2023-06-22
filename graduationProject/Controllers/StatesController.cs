@@ -45,7 +45,6 @@ namespace graduationProject.Controllers
         }
 
         [HttpGet("HavingCities")]
-        [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<ActionResult<IEnumerable<StateReadSimpleDTO>>> GetAllStatesHavingCities()
         {
             var states = await _stateManager.GetAllHavingCitiesAsync();
