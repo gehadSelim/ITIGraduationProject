@@ -30,7 +30,7 @@ namespace graduationProject.Controllers
             return Ok(roles);
         }
 
-        [HttpGet]
+        [HttpGet("simple")]
         public IActionResult GetAllSimpleRoles()
         {
             var roles = _roleManager.GetAllSimple();
