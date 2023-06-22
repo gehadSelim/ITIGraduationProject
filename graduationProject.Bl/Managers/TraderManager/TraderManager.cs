@@ -296,7 +296,8 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to update user");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
             return entity;
         }
@@ -322,7 +323,8 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to update user");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
 
             Trader updatedTrader = await _repository.GetByCriteriaAsync(r => r.Id == entity.Id , new[] { "SpecialPackages" });

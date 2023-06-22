@@ -185,7 +185,8 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to update user");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
             return entity;
         }
@@ -211,7 +212,8 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to update user");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
 
             Employee updatedEmployee = await _repository.GetByCriteriaAsync(e => (e.Id == entity.Id));

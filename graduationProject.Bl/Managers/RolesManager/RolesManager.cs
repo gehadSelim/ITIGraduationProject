@@ -66,7 +66,8 @@ namespace graduationProject.Bl.Managers
             var result = await _roleManager.DeleteAsync(role);
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to Delete Role");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
             return result;
         }
@@ -120,7 +121,8 @@ namespace graduationProject.Bl.Managers
             var result = await _roleManager.UpdateAsync(existingRole);
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to Update Role");
+                var errorList = result.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
 
             return role;
