@@ -48,7 +48,7 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                var errorList = result1.Errors.Select(r => r.Description).ToList();
+                var errorList = result.Errors.Select(r => r.Description).ToList();
                 throw new Exception(errorList.FirstOrDefault());
             }
 
