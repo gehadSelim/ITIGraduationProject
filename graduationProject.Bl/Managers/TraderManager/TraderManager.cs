@@ -325,7 +325,7 @@ namespace graduationProject.Bl.Managers
                 throw new Exception("Failed to update user");
             }
 
-            Trader updatedTrader = await _repository.GetByCriteriaAsync(r => r.Id == entity.Id);
+            Trader updatedTrader = await _repository.GetByCriteriaAsync(r => r.Id == entity.Id , new[] { "SpecialPackages" });
 
             _sprepository.DeleteRange(updatedTrader.SpecialPackages.ToList());
 
