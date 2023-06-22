@@ -1,4 +1,5 @@
 ﻿using graduationProject.Bl.DTOs;
+using graduationProject.Bl.DTOs.CityDTO;
 using graduationProject.DAL;
 using graduationProject.DAL.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -100,6 +101,46 @@ namespace graduationProject.Bl.Managers
                         Name = e.Role.Name
                     }
                 });
+            return result;
+        }
+
+        public async Task<PaginationDTO<EmployeeReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var employees = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize, new[] { "Role", "ApplicationUser", "Branch" });
+
+            if (employees == null)
+            {
+                return null;
+            }
+
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<EmployeeReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = employees.Select(e => new EmployeeReadDTO
+                {
+                    Id = e.Id,
+                    UserName = e.ApplicationUser.UserName,
+                    FullName = e.ApplicationUser.FullName,
+                    Email = e.ApplicationUser.Email,
+                    PhoneNumber = e.ApplicationUser.PhoneNumber,
+                    Address = e.ApplicationUser.Address,
+                    Branch = new()
+                    {
+                        Id = e.BranchId,
+                        Name = e.Branch.Name
+                    },
+                    Status = e.ApplicationUser.Status,
+                    Date = e.Date,
+                    Role = new()
+                    {
+                        Id = e.RoleId,
+                        Name = e.Role.Name
+                    }
+
+                }),
+            };
+
             return result;
         }
 

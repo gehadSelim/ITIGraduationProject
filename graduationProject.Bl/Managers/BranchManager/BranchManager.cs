@@ -71,24 +71,31 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
-        //public async Task<PaginationDTO<BranchReadDTO>?> GetAllAsNoTrackingAsync(int pageNumber, int pageSize)
-        //{
-        //    var branches = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize);
+        public async Task<PaginationDTO<BranchReadDTO>?> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var branches = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize);
 
-        //    if (branches == null)
-        //    {
-        //        return null;
-        //    }
+            if (branches == null)
+            {
+                return null;
+            }
 
-        //    int totalPages = _repository.GetTotalPages(pageSize);
-        //    PaginationDTO<BranchReadDTO> result = new()
-        //    {
-        //        TotalPages = totalPages,
-        //        Data = branches
-        //    };
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<BranchReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = branches.Select(b=>new BranchReadDTO
+                {
+                    Id = b.Id,
+                    Name = b.Name,
+                    Date = b.Date,
+                    Status = b.Status
 
-        //    return result;
-        //}
+                }),
+            };
+
+            return result;
+        }
 
         public async Task<BranchReadDTO> GetByIdAsync(byte id)
         {

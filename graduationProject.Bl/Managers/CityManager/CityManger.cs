@@ -44,6 +44,37 @@ namespace graduationProject.Bl.Managers.CityManager
             return result;
         }
 
+        public async Task<PaginationDTO<CityReadDto>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var cities = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize, new[] { "State" });
+
+            if (cities == null)
+            {
+                return null;
+            }
+
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<CityReadDto> result = new()
+            {
+                TotalPages = totalPages,
+                Data = cities.Select(c => new CityReadDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Status = c.Status,
+                    ShippingCost = c.ShipingCost,
+                    State = new()
+                    {
+                        Id = c.StateId,
+                        Name = c.State.Name
+                    }
+
+                }),
+            };
+
+            return result;
+        }
+
         public async Task<IEnumerable<CityReadDto>> GetAllWithShippingCostAsync()
         {
             var cities = await _repository.GetAllAsync(new[] { "State" });

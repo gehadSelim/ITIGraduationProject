@@ -43,6 +43,13 @@ namespace graduationProject.Controllers
             return Ok(cities);
         }
 
+        [HttpGet("paginate")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> GetAllCitiesWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _cityManager.GetAllWithPaginationAsync(pageNumber, pageSize));
+        }
+
         [HttpPut("{id}")]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<IActionResult> UpdateCity(int id, CityUpdateDto cityDto)

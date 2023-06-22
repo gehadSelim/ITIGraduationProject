@@ -36,6 +36,13 @@ namespace graduationProject.Controllers
             return Ok(result);
         }
 
+        [HttpGet("paginate")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> GetAllTradersWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _traderManager.GetAllWithPaginationAsync(pageNumber, pageSize));
+        }
+
         [HttpGet]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<IActionResult> GetAllTraders()

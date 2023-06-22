@@ -128,6 +128,49 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public async Task<PaginationDTO<RepresentativeReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var representatives = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize, new[] { "ApplicationUser", "Branch" });
+
+            if (representatives == null)
+            {
+                return null;
+            }
+
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<RepresentativeReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = representatives.Select(r => new RepresentativeReadDTO
+                {
+
+                    Id = r.Id,
+                    UserName = r.ApplicationUser.UserName,
+                    FullName = r.ApplicationUser.FullName,
+                    Email = r.ApplicationUser.Email,
+                    PhoneNumber = r.ApplicationUser.PhoneNumber,
+                    Address = r.ApplicationUser.Address,
+                    Branch = new()
+                    {
+                        Id = r.BranchId,
+                        Name = r.Branch.Name
+                    },
+                    Status = r.ApplicationUser.Status,
+                    Date = r.Date,
+                    CompanyOrderRatio = r.CompanyOrderRatio,
+                    DiscountType = r.DiscountType,
+                    States = r.RepresentativeStates.Select(s => new RepresentativeStateReadDTO
+                    {
+                        Id = s.Id,
+                        State = s.State.Name
+                    }).ToList(),
+
+                }),
+            };
+
+            return result;
+        }
+
         public async Task<IEnumerable<RepresentativeReadDTO>> GetAllAsync()
         {
             var representatives = _repository.GetAllAsync(new[] { "ApplicationUser", "Branch" }).Result.Include(r => r.RepresentativeStates).ThenInclude(r => r.State);

@@ -107,6 +107,38 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public PaginationDTO<RoleReadDTO> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            var roles = _roleManager.Roles.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            if (roles == null)
+            {
+                return null;
+            }
+
+            int totalRecords = _roleManager.Roles.Count();
+            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            PaginationDTO<RoleReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = roles.Select(r => new RoleReadDTO
+                {
+                    Id = r.Id,
+                    RoleName = r.Name,
+                    AddedDate = r.Date,
+                    Permissions = r.RolePrivileges.Select(rp => new RolePrivilegesReadDTO()
+                    {
+                        Id = rp.Id,
+                        PrivilegeId = rp.PrivilegeId,
+                        Permissions = new List<bool> { rp.AddPermission, rp.ViewPermission, rp.EditPermission, rp.DeletePermission }
+
+                    })
+                }),
+            };
+
+            return result;
+        }
+
         public async Task<RoleUpdateDTO> UpdateAsync(RoleUpdateDTO role)
         {
             var existingRole = _roleManager.Roles.Include(r => r.RolePrivileges).FirstOrDefault(r => r.Id == role.RoleId);

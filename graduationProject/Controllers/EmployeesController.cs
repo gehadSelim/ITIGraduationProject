@@ -37,6 +37,12 @@ namespace graduationProject.Controllers
             return Ok(result);
         }
 
+        [HttpGet("paginate")]
+        public async Task<IActionResult> GetAllEmployeesWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _employeeManager.GetAllWithPaginationAsync(pageNumber, pageSize));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllEmployees()
         {

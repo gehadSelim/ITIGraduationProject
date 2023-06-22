@@ -36,6 +36,13 @@ namespace graduationProject.Controllers
             return Ok(states);
         }
 
+        [HttpGet("paginate")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> GetAllStatesWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _stateManager.GetAllWithPaginationAsync(pageNumber, pageSize));
+        }
+
         [HttpGet]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<ActionResult<IEnumerable<StateReadDTO>>> GetAllStates()

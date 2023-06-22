@@ -1,5 +1,6 @@
 ﻿using graduationProject.Bl.DTOs;
 using graduationProject.Bl.Managers;
+using graduationProject.Bl.Managers.OrderManager;
 using graduationProject.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +26,13 @@ namespace graduationProject.Controllers
         {
             var branches = await _branchManager.GetAllAsync();
             return Ok(branches);
+        }
+
+        [HttpGet("paginate")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public async Task<IActionResult> GetAllBranchesWithPagination( int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _branchManager.GetAllWithPaginationAsync(pageNumber, pageSize));
         }
 
         [HttpGet("{id}")]

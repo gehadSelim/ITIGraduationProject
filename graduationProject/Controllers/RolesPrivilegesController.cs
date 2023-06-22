@@ -30,6 +30,13 @@ namespace graduationProject.Controllers
             return Ok(roles);
         }
 
+        [HttpGet("paginate")]
+        [TypeFilter(typeof(ValidatePermissionAttribute))]
+        public IActionResult GetAllRolesWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(_roleManager.GetAllWithPagination(pageNumber, pageSize));
+        }
+
         [HttpGet("simple")]
         public IActionResult GetAllSimpleRoles()
         {

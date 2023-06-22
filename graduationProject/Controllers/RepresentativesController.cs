@@ -42,6 +42,12 @@ namespace graduationProject.Controllers
             return Ok(result);
         }
 
+        [HttpGet("paginate")]
+        public async Task<IActionResult> GetAllRepresentativesWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            return Ok(await _representativeManager.GetAllWithPaginationAsync(pageNumber, pageSize));
+        }
+
         [HttpGet("state/{id}")]
         public async Task<IActionResult> GetAllRepresentativesByStateId(int id)
         {

@@ -49,6 +49,30 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public async Task<PaginationDTO<StateReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var states = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize);
+
+            if (states == null)
+            {
+                return null;
+            }
+
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<StateReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = states.Select(s => new StateReadDTO
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Status = s.Status
+                }),
+            };
+
+            return result;
+        }
+
         public async Task<IEnumerable<StateReadDTO>> GetAllAsync()
         {
             var states = await _repository.GetAllAsync();

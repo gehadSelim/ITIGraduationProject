@@ -149,6 +149,60 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public async Task<PaginationDTO<TraderReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var traders = await _repository.GetAllAsNoTrackingAsync(pageNumber, pageSize, new[] { "City", "State", "ApplicationUser", "Branch", "SpecialPackages" });
+
+            if (traders == null)
+            {
+                return null;
+            }
+
+            int totalPages = _repository.GetTotalPages(pageSize);
+            PaginationDTO<TraderReadDTO> result = new()
+            {
+                TotalPages = totalPages,
+                Data = traders.Select(t => new TraderReadDTO
+                {
+                    Id = t.Id,
+                    UserName = t.ApplicationUser.UserName,
+                    FullName = t.ApplicationUser.FullName,
+                    Email = t.ApplicationUser.Email,
+                    PhoneNumber = t.ApplicationUser.PhoneNumber,
+                    Address = t.ApplicationUser.Address,
+                    Status = t.ApplicationUser.Status,
+                    Date = t.Date,
+                    RejectedOrderlossRatio = t.RejectedOrderlossRatio,
+                    StoreName = t.StoreName,
+                    Branch = new()
+                    {
+                        Id = t.Branch.Id,
+                        Name = t.Branch.Name
+
+                    },
+                    City = new()
+                    {
+                        Id = t.City.Id,
+                        Name = t.City.Name,
+                    },
+                    State = new()
+                    {
+                        Id = t.State.Id,
+                        Name = t.State.Name
+                    },
+                    SpecialPackages = t.SpecialPackages.Select(s => new SpecialPackageReadDTO
+                    {
+                        ShippingCost = s.ShippingCost,
+                        City = s.City.Name,
+                        State = s.State.Name
+                    })
+
+                }),
+            };
+
+            return result;
+        }
+
         public async Task<IEnumerable<TraderReadDTO>> GetAllAsync()
         {
             var traders = await _repository.GetAllAsync(new[] { "City", "State", "ApplicationUser", "Branch" , "SpecialPackages" });

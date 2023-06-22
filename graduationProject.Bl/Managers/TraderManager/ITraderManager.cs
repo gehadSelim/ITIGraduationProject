@@ -13,6 +13,7 @@ namespace graduationProject.Bl.Managers
         Task<TraderReadDTO> GetByApplicationUserIdAsync(string id);
         Task<double> GetShippingCostAsync(string Traderid,int Cityid);
         Task<IEnumerable<TraderReadDTO>> GetAllAsync();
+        Task<PaginationDTO<TraderReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
         Task<IEnumerable<TraderReadDTO>> GetAllActiveAsync();
         Task<TraderWriteDTO> AddAsync(TraderWriteDTO entity);
         Task<TraderUpdateStatusDTO> UpdateStatusAsync(TraderUpdateStatusDTO entity);

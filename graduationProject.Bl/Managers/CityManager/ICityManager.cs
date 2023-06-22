@@ -12,6 +12,7 @@ namespace graduationProject.Bl.Managers.CityManager
     {
         Task<IEnumerable<CityReadSimpleDto>> GetAllAsync();
         Task<IEnumerable<CityReadDto>> GetAllWithShippingCostAsync();
+        Task<PaginationDTO<CityReadDto>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
         Task<double> GetByIDAsync(int Cityid);
         Task<CityWriteDto> AddAsync(CityWriteDto entity);
         Task<CityUpdateDto> UpdateAsync(CityUpdateDto entity);

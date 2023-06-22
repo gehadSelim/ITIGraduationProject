@@ -1,4 +1,5 @@
 ﻿using graduationProject.Bl.DTOs;
+using graduationProject.Bl.DTOs.CityDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace graduationProject.Bl.Managers
         Task<EmployeeReadDTO> GetByIdAsync(string id);
         Task<EmployeeReadDTO> GetByApplicationUserIdAsync(string id);
         Task<IEnumerable<EmployeeReadDTO>> GetAllAsync();
+        Task<PaginationDTO<EmployeeReadDTO>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
         Task<IEnumerable<EmployeeReadDTO>> GetAllActiveAsync();
         Task<EmployeeWriteDTO> AddAsync(EmployeeWriteDTO entity);
         Task<EmployeeUpdateStatusDTO> UpdateStatusAsync(EmployeeUpdateStatusDTO entity);

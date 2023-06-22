@@ -12,6 +12,7 @@ namespace graduationProject.Bl.Managers
         Task<BranchReadDTO> GetByIdAsync(byte id);
         Task<IEnumerable<BranchReadDTO>> GetAllAsync();
         Task<IEnumerable<BranchReadDTO>> GetAllActiveAsync();
+        Task<PaginationDTO<BranchReadDTO>?> GetAllWithPaginationAsync(int pageNumber, int pageSize);
         Task<BranchWriteDTO> AddAsync(BranchWriteDTO entity);
         Task<BranchUpdateDTO> UpdateAsync(BranchUpdateDTO entity);
         void Delete(byte id);
