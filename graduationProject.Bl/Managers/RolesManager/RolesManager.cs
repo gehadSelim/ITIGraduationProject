@@ -79,6 +79,7 @@ namespace graduationProject.Bl.Managers
             {
                 Id = r.Id,
                 RoleName = r.Name,
+                AddedDate = r.Date,
                 Permissions = r.RolePrivileges.Select(rp => new RolePrivilegesReadDTO()
                 {
                     Id = rp.Id,
