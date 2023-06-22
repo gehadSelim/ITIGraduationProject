@@ -315,14 +315,17 @@ namespace graduationProject.Bl.Managers
 
             Representative updatedRepresentative = await _repository.GetByCriteriaAsync(r => (r.Id == entity.Id), new[] { "RepresentativeStates" });
 
-            _staterepository.DeleteRange(updatedRepresentative.RepresentativeStates.ToList());
-           
-            _staterepository.AddRange(entity.States.Select(s => new RepresentativeState
+            if(entity.States != null)
             {
-                RepresentativeId = entity.Id,
-                StateId = s.StateId
-            }).ToList());
+                _staterepository.DeleteRange(updatedRepresentative.RepresentativeStates.ToList());
 
+                _staterepository.AddRange(entity.States.Select(s => new RepresentativeState
+                {
+                    RepresentativeId = entity.Id,
+                    StateId = s.StateId
+                }).ToList());
+            }
+            
             updatedRepresentative.BranchId = entity.BranchId;
             updatedRepresentative.DiscountType = entity.DiscountType;
             updatedRepresentative.CompanyOrderRatio = entity.CompanyOrderRatio;

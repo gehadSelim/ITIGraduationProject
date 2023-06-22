@@ -8,12 +8,12 @@ namespace graduationProject.Bl.Managers.OrderManager
     public interface IOrderManager
     {
         Task<OrderReadDto> GetByIdAsync(int id);
-        Task<IEnumerable<OrderReadDto>> GetByTraderIDAsync(int pageNumber, int pageSize ,string Traderid);
-        Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDAsync(int pageNumber, int pageSize ,string Representativeid);
-        Task<IEnumerable<OrderReadDto>> GetByEmployeeIDAsync(int pageNumber, int pageSize );
-        Task<IEnumerable<OrderReadDto>> GetByTraderIDWithStatusAsync(int pageNumber, int pageSize, string Traderid,OrderStatus orderStatus);
-        Task<IEnumerable<OrderReadDto>> GetByRepresentativeIDWithStatusAsync(int pageNumber, int pageSize, string Representativeid, OrderStatus orderStatus);
-        Task<IEnumerable<OrderReadDto>> GetByEmployeeIDWithStatusAsync(int pageNumber, int pageSize, OrderStatus orderStatus);
+        Task<PaginationDTO<OrderReadDto>?> GetByTraderIDAsync(int pageNumber, int pageSize ,string Traderid);
+        Task<PaginationDTO<OrderReadDto>?> GetByRepresentativeIDAsync(int pageNumber, int pageSize ,string Representativeid);
+        Task<PaginationDTO<OrderReadDto>?> GetByEmployeeIDAsync(int pageNumber, int pageSize );
+        Task<PaginationDTO<OrderReadDto>?> GetByTraderIDWithStatusAsync(int pageNumber, int pageSize, string Traderid,OrderStatus orderStatus);
+        Task<PaginationDTO<OrderReadDto>?> GetByRepresentativeIDWithStatusAsync(int pageNumber, int pageSize, string Representativeid, OrderStatus orderStatus);
+        Task<PaginationDTO<OrderReadDto>?> GetByEmployeeIDWithStatusAsync(int pageNumber, int pageSize, OrderStatus orderStatus);
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByTraderID(string Traderid); 
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByRepresentativeID(string RepresentativeID);
         Task<IEnumerable<OrderGroupByKeyValueDto>> GetAllGroupByEmployee();
