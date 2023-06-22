@@ -94,7 +94,11 @@ namespace graduationProject.Bl.Managers
                     },
                     Status = e.ApplicationUser.Status,
                     Date = e.Date,
-                    RoleName = e.Role.Name
+                    Role = new()
+                    {
+                        Id = e.RoleId,
+                        Name = e.Role.Name
+                    }
                 });
             return result;
         }
@@ -119,7 +123,11 @@ namespace graduationProject.Bl.Managers
                     },
                     Status = e.ApplicationUser.Status,
                     Date = e.Date,
-                    RoleName = e.Role.Name
+                    Role = new()
+                    {
+                        Id = e.RoleId,
+                        Name = e.Role.Name
+                    }
                 });
             return result;
         }
@@ -143,7 +151,11 @@ namespace graduationProject.Bl.Managers
                 },
                 Status = employee.ApplicationUser.Status,
                 Date = employee.Date,
-                RoleName = employee.Role.Name
+                Role = new()
+                {
+                    Id = employee.RoleId,
+                    Name = employee.Role.Name
+                }
             };
             return result;
         }
@@ -167,7 +179,11 @@ namespace graduationProject.Bl.Managers
                 },
                 Status = employee.ApplicationUser.Status,
                 Date = employee.Date,
-                RoleName = employee.Role.Name
+                Role = new()
+                {
+                    Id = employee.RoleId,
+                    Name = employee.Role.Name
+                }
             };
             return result;
         }
