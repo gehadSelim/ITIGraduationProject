@@ -140,18 +140,10 @@ namespace graduationProject.Bl.Managers
                         Name = t.State.Name
                     },
                     SpecialPackages = t.SpecialPackages.Select(s => new SpecialPackageReadDTO {
-                        Id = s.Id,
+                        //Id = s.Id,
                         ShippingCost = s.ShippingCost,
-                        City = new()
-                        {
-                            Id = s.City.Id,
-                            Name = s.City.Name,
-                        },
-                        State = new()
-                        {
-                            Id = s.State.Id,
-                            Name = s.State.Name
-                        }
+                        City = s.City.Name,
+                        State = s.State.Name
                     })
                 });
             return result;
@@ -192,18 +184,9 @@ namespace graduationProject.Bl.Managers
                     },
                     SpecialPackages = t.SpecialPackages.Select(s => new SpecialPackageReadDTO
                     {
-                        Id = s.Id,
                         ShippingCost = s.ShippingCost,
-                        City = new()
-                        {
-                            Id = s.City.Id,
-                            Name = s.City.Name,
-                        },
-                        State = new()
-                        {
-                            Id = s.State.Id,
-                            Name = s.State.Name
-                        }
+                        City = s.City.Name,
+                        State = s.State.Name
                     })
                 });
             return result;
@@ -224,18 +207,9 @@ namespace graduationProject.Bl.Managers
             {
                 specialPackage = trader.SpecialPackages.Select(s => new SpecialPackageReadDTO
                 {
-                    Id = s.Id,
                     ShippingCost = s.ShippingCost,
-                    City = new()
-                    {
-                        Id = s.City.Id,
-                        Name = s.City.Name,
-                    },
-                    State = new()
-                    {
-                        Id = s.State.Id,
-                        Name = s.State.Name
-                    }
+                    City = s.City.Name,
+                    State = s.State.Name
 
                 }).ToList();
             }
@@ -275,18 +249,9 @@ namespace graduationProject.Bl.Managers
             {
                 specialPackage = trader.SpecialPackages.Select(s => new SpecialPackageReadDTO
                 {
-                    Id = s.Id,
                     ShippingCost = s.ShippingCost,
-                    City = new()
-                    {
-                        Id = s.City.Id,
-                        Name = s.City.Name,
-                    },
-                    State = new()
-                    {
-                        Id = s.State.Id,
-                        Name = s.State.Name
-                    }
+                    City = s.City.Name,
+                    State = s.State.Name
 
                 }).ToList();
             }
