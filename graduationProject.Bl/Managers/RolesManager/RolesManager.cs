@@ -48,7 +48,8 @@ namespace graduationProject.Bl.Managers
 
             if (!result.Succeeded)
             {
-                throw new Exception("Failed to create Role");
+                var errorList = result1.Errors.Select(r => r.Description).ToList();
+                throw new Exception(errorList.FirstOrDefault());
             }
 
             return entity;
