@@ -179,6 +179,10 @@ namespace graduationProject.Bl.Managers
             {
                 throw new Exception("Failed to find user");
             }
+
+            if (oldApplicationUser.UserName == "SuperAdmin")
+                throw new Exception("SuperAdmin can't be updated");
+
             oldApplicationUser.Status = entity.Status;
 
             var result = await _userManager.UpdateAsync(oldApplicationUser);
@@ -199,6 +203,9 @@ namespace graduationProject.Bl.Managers
             {
                 throw new Exception("Failed to find user");
             }
+
+            if (oldApplicationUser.UserName == "SuperAdmin")
+                throw new Exception("SuperAdmin can't be updated");
 
             oldApplicationUser.UserName = entity.UserName;
             oldApplicationUser.FullName = entity.FullName;

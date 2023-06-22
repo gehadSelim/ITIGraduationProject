@@ -62,6 +62,8 @@ namespace graduationProject.Bl.Managers
             {
                 throw new Exception("Role is Not Found");
             }
+            if (role.Name == "SuperAdmin")
+                throw new Exception("SuperAdmin can't be deleted");
 
             var result = await _roleManager.DeleteAsync(role);
             if (!result.Succeeded)
@@ -100,6 +102,9 @@ namespace graduationProject.Bl.Managers
             {
                 throw new Exception("Role is Not Found");
             }
+
+            if (existingRole.Name == "SuperAdmin")
+                throw new Exception("SuperAdmin permissions can't be updated");
 
             _rolesRepository.DeleteRange(existingRole.RolePrivileges.ToList());
 
