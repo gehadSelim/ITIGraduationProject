@@ -94,6 +94,19 @@ namespace graduationProject.Bl.Managers
             return result;
         }
 
+        public IEnumerable<RoleSimpleDTO> GetAllSimple()
+        {
+            var roles = _roleManager.Roles;
+
+            var result = roles.Select(r => new RoleSimpleDTO
+            {
+                Id = r.Id,
+                Name = r.Name,
+                
+            });
+            return result;
+        }
+
         public async Task<RoleUpdateDTO> UpdateAsync(RoleUpdateDTO role)
         {
             var existingRole = _roleManager.Roles.Include(r => r.RolePrivileges).FirstOrDefault(r => r.Id == role.RoleId);

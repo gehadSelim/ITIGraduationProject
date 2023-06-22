@@ -30,6 +30,13 @@ namespace graduationProject.Controllers
             return Ok(roles);
         }
 
+        [HttpGet]
+        public IActionResult GetAllSimpleRoles()
+        {
+            var roles = _roleManager.GetAllSimple();
+            return Ok(roles);
+        }
+
         [HttpPost]
         [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<IActionResult> CreateRole(RoleWriteDTO role)
