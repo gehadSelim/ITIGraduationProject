@@ -28,7 +28,7 @@ namespace graduationProject.Bl.DTOs.OrderDto
         public double TotalCost { get; set; }
         public double TotalWeight { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public string TraderId { get; set; } = string.Empty;
+        public TraderSimpleReadDTO Trader { get; set; } = new TraderSimpleReadDTO();
         public RepresentativeSimpleReadDTO Representative { get; set; } = new RepresentativeSimpleReadDTO();
         public string Comments { get; set; } = string.Empty;
         public OrderStatus OrderStatus { get; set; } = OrderStatus.New;

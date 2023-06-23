@@ -115,7 +115,8 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                ).Result.Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync();
+                ).Result.Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync();
 
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
 
@@ -123,6 +124,9 @@ namespace graduationProject.Bl.Managers.OrderManager
             #region setting full name of representative
             for (int i = 0; i < data.Count; ++i)
             {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
                 if (entity[i].Representative != null)
                     data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
             }
