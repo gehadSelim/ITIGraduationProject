@@ -79,9 +79,23 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                , T => T.TraderId == Traderid);
+                , T => T.TraderId == Traderid).Result
+                                              .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                                              .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync(); ;
 
             var data =  _mapper.Map<IList<OrderReadDto>>(entity);
+
+            #region setting full name of representative and trader
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
@@ -97,9 +111,23 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                , R => R.RepresentativeID == Representativeid );
+                , R => R.RepresentativeID == Representativeid ).Result
+                                                               .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                                                               .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync(); ;
 
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
+
+            #region setting full name of representative and trader
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
@@ -115,13 +143,14 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                ).Result.Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                ).Result
+                .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
                 .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync();
 
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
 
 
-            #region setting full name of representative
+            #region setting full name of representative and trader
             for (int i = 0; i < data.Count; ++i)
             {
                 data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
@@ -146,8 +175,24 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                , T => T.TraderId == Traderid && T.OrderStatus == orderStatus);
+                , T => T.TraderId == Traderid && T.OrderStatus == orderStatus)
+                .Result                                
+                .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)                                       
+                .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync(); 
+
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
+
+            #region setting full name of representative and trader
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
@@ -162,8 +207,25 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                , R => R.RepresentativeID == Representativeid && R.OrderStatus == orderStatus);
+                , R => R.RepresentativeID == Representativeid && R.OrderStatus == orderStatus)
+                .Result
+                .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser)
+                .ToListAsync();
+            
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
+
+            #region setting full name of representative and trader
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
@@ -178,8 +240,23 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                ,E => E.OrderStatus == orderStatus);
+                ,E => E.OrderStatus == orderStatus).Result
+                                                   .Include(o => o.Trader).ThenInclude(t => t.ApplicationUser)
+                                                   .Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync();
+            
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
+
+            #region setting full name of representative and trader
+            for (int i = 0; i < data.Count; ++i)
+            {
+                data[i].Trader.FullName = entity[i].Trader.ApplicationUser.FullName;
+                data[i].Trader.PhoneNumber = entity[i].Trader.ApplicationUser.PhoneNumber;
+
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
