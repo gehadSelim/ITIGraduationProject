@@ -31,6 +31,8 @@ namespace graduationProject.Bl.AutoMapping
             CreateMap<City, CitySimpleDTO>().ReverseMap();
             CreateMap<City, CityReadSimpleDto>().ReverseMap();
             CreateMap<Trader, TraderSimpleReadDTO>().ReverseMap();
+            CreateMap<Representative, RepresentativeSimpleReadDTO>().ReverseMap();
+
         }
     }
 }

@@ -29,7 +29,7 @@ namespace graduationProject.Bl.DTOs.OrderDto
         public double TotalWeight { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public string TraderId { get; set; } = string.Empty;
-        public string RepresentativeID { get; set; } = string.Empty;
+        public RepresentativeSimpleReadDTO Representative { get; set; } = new RepresentativeSimpleReadDTO();
         public string Comments { get; set; } = string.Empty;
         public OrderStatus OrderStatus { get; set; } = OrderStatus.New;
         public virtual ICollection<OrderItemReadDto> OrderItems { get; set; } = new HashSet<OrderItemReadDto>();

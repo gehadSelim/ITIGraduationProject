@@ -115,8 +115,19 @@ namespace graduationProject.Bl.Managers.OrderManager
         {
             var entity = await _repository.GetAllAsNoTrackingAsync(
                 pageNumber, pageSize, new[] { "ShippingType", "Branch", "City", "State", "OrderItems" }
-                );
+                ).Result.Include(o => o.Representative).ThenInclude(r => r.ApplicationUser).ToListAsync();
+
             var data = _mapper.Map<IList<OrderReadDto>>(entity);
+
+
+            #region setting full name of representative
+            for (int i = 0; i < data.Count; ++i)
+            {
+                if (entity[i].Representative != null)
+                    data[i].Representative.FullName = entity[i].Representative.ApplicationUser.FullName;
+            }
+            #endregion
+
             int totalPages = _repository.GetTotalPages(pageSize);
 
             PaginationDTO<OrderReadDto> result = new()
