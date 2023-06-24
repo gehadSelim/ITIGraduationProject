@@ -112,6 +112,12 @@ namespace graduationProject
                 options.AddPolicy("RepresentativeOnly", policy => policy
                     .RequireClaim(ClaimTypes.Role, "Representative")
                     .RequireClaim(ClaimTypes.NameIdentifier));
+
+                    options.AddPolicy("DisallowTrader&Representative", policy =>
+                        policy.RequireAssertion(context =>
+                            !context.User.HasClaim(c =>
+                                c.Type == ClaimTypes.Role && (c.Value == "Trader" || c.Value == "Representative"))));
+               
             });
             #endregion
 

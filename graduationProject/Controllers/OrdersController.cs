@@ -125,6 +125,7 @@ namespace graduationProject.Controllers
 
         [HttpGet]
         [Route("GetAllByEmployeeGroupByStatusAsync")]
+        [Authorize(Policy = "DisallowTrader&Representative")]
         public async Task<IActionResult> GetAllEmployeeGroupByStatusAsync()
         {
             return Ok(await orderManager.GetAllGroupByEmployee());
