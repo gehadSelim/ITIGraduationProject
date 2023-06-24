@@ -125,7 +125,6 @@ namespace graduationProject.Controllers
 
         [HttpGet]
         [Route("GetAllByEmployeeGroupByStatusAsync")]
-        [TypeFilter(typeof(ValidatePermissionAttribute))]
         public async Task<IActionResult> GetAllEmployeeGroupByStatusAsync()
         {
             return Ok(await orderManager.GetAllGroupByEmployee());
