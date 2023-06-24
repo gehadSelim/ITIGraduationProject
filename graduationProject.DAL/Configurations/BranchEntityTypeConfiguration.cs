@@ -16,6 +16,11 @@ namespace graduationProject.DAL.Configurations
                 .Property(b => b.Name)
                 .HasColumnType("nvarchar(75)");
 
+
+            builder
+               .HasIndex(st => st.Name)
+               .IsUnique();
+
             builder
                 .Property(b=>b.Date)
                 .HasDefaultValueSql("GETDATE()");

@@ -17,6 +17,11 @@ namespace graduationProject.DAL.Configurations
                 .Property(s => s.Name)
                 .HasColumnType("nvarchar(75)");
 
+
+            builder
+               .HasIndex(st => st.Name)
+               .IsUnique();
+
             builder
                 .Property(s => s.Id)
                 .UseIdentityColumn();

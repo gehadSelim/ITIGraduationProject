@@ -28,6 +28,10 @@ namespace graduationProject.DAL.Configurations
             builder
                 .Property(o => o.Comments)
                 .IsRequired(false);
+
+            builder
+             .Property(e => e.BranchId)
+             .HasDefaultValue<byte>(1);
         }
     }
 }

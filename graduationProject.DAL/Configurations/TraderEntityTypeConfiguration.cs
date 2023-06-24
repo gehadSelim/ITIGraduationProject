@@ -22,6 +22,10 @@ namespace graduationProject.DAL.Configurations
                 .HasDefaultValueSql("GETDATE()");
 
             builder
+             .Property(e => e.BranchId)
+             .HasDefaultValue<byte>(1);
+
+            builder
                 .Property(t => t.StoreName)
                 .HasColumnType("nvarchar(85)");
         }

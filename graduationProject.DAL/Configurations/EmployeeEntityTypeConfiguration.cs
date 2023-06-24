@@ -20,6 +20,14 @@ namespace graduationProject.DAL.Configurations
             builder
                 .Property(e => e.Date)
                 .HasDefaultValueSql("GETDATE()");
+
+            builder
+                .Property(e => e.RoleId)
+                .IsRequired(false);
+
+            builder
+                .Property(e => e.BranchId)
+                .HasDefaultValue<byte>(1);
         }
     }
 }

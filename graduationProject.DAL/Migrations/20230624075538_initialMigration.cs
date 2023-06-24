@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace graduationProject.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class cityStatusandSeed : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -239,10 +239,10 @@ namespace graduationProject.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    BranchId = table.Column<byte>(type: "tinyint", nullable: false)
+                    BranchId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1)
                 },
                 constraints: table =>
                 {
@@ -252,7 +252,8 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete : ReferentialAction.SetNull
+                        );
                     table.ForeignKey(
                         name: "FK_Employees_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -264,7 +265,7 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.BranchId,
                         principalTable: "Branches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetDefault);
                 });
 
             migrationBuilder.CreateTable(
@@ -276,7 +277,7 @@ namespace graduationProject.DAL.Migrations
                     CompanyOrderRatio = table.Column<double>(type: "float", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    BranchId = table.Column<byte>(type: "tinyint", nullable: false)
+                    BranchId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1)
                 },
                 constraints: table =>
                 {
@@ -292,7 +293,7 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.BranchId,
                         principalTable: "Branches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetDefault);
                 });
 
             migrationBuilder.CreateTable(
@@ -384,7 +385,7 @@ namespace graduationProject.DAL.Migrations
                     RejectedOrderlossRatio = table.Column<double>(type: "float", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    BranchId = table.Column<byte>(type: "tinyint", nullable: false)
+                    BranchId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1)
                 },
                 constraints: table =>
                 {
@@ -400,7 +401,7 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.BranchId,
                         principalTable: "Branches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetDefault);
                     table.ForeignKey(
                         name: "FK_Traders_Cities_CityId",
                         column: x => x.CityId,
@@ -430,7 +431,7 @@ namespace graduationProject.DAL.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     StateId = table.Column<byte>(type: "tinyint", nullable: false),
                     PaymentType = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<byte>(type: "tinyint", nullable: false),
+                    BranchId = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     AdressDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsVillage = table.Column<bool>(type: "bit", nullable: false),
                     OrderShipingCost = table.Column<double>(type: "float", nullable: false),
@@ -453,19 +454,19 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.BranchId,
                         principalTable: "Branches",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetDefault);
                     table.ForeignKey(
                         name: "FK_Orders_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Representatives_RepresentativeID",
                         column: x => x.RepresentativeID,
                         principalTable: "Representatives",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete : ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Orders_ShippingTypes_ShippingTypeId",
                         column: x => x.ShippingTypeId,
@@ -542,31 +543,25 @@ namespace graduationProject.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_States_Name",
-                table: "States",
-                column: "Name",
-                unique: true);
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Date", "Discriminator", "Name", "NormalizedName" },
-                values: new object[] { "8f1824df-6511-4a98-82bf-aefd767a8d7f", null, new DateTime(2023, 6, 22, 0, 22, 9, 413, DateTimeKind.Local).AddTicks(9509), "Role", "SuperAdmin", "SUPERADMIN" });
+                values: new object[] { "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", null, new DateTime(2023, 6, 24, 0, 55, 37, 335, DateTimeKind.Local).AddTicks(6116), "Role", "SuperAdmin", "SUPERADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1a98dee7-83f1-4a99-a794-af3a55b4c918", 0, "Banha", "be505060-036c-4b6c-ae3d-0b3f723bdbf7", "trader@shipping.com", false, "Ahmed Khaled", false, null, "TRADER@SHIPPING.COM", "TRADER", "AQAAAAIAAYagAAAAEGkt2cJ9fHkDm1CkgpMo15xzTrsK49B7KTLRrINCbhGNaJMYH29WtjZb8dC925GAzg==", "01556968642", false, "a1f47f45-70d7-487c-9f67-11e1f019b25e", true, false, "Trader" },
-                    { "5d529f11-6c5e-4d04-93ed-68eeaddddb1f", 0, "Tanta", "78aed8c1-5483-4550-959a-1171afa62b3f", "representative@shipping.com", false, "Mohammed Ahmed", false, null, "REPRESENTATIVE@SHIPPING.COM", "REPRESENTATIVE", "AQAAAAIAAYagAAAAENBscMMcrs9OhR6CXopM8GXlJgQfmo31seAXgVYqZEl/NHmlP1+1U+vQTqazpgU5Aw==", "01015226007", false, "8ecc5a20-d4c6-45ae-a3e9-aa687fb5462e", true, false, "Representative" },
-                    { "f2740347-5bb0-423c-a7b6-8a05265680ef", 0, "Banha", "da79ee37-470f-4881-ad07-3ada3ca41427", "super_admin@shipping.com", false, "Aya Ahmed Mahmoud", false, null, "SUPER_ADMIN@SHIPPING.COM", "SUPERADMIN", "AQAAAAIAAYagAAAAEB3BjPEkQLkcYp+E+OCA6Aq1EioOfVvJyyeJXmBlaHoQRXYPcxoaC6hkhbjy3pIDfA==", "01090370531", false, "e829acea-f82b-41b8-857a-3340556d5f2a", true, false, "SuperAdmin" }
+                    { "17d7aebd-e230-4f86-ab4a-4ce594bf0178", 0, "Banha", "9c59f319-eeb1-45e3-a987-9b91ea065f9c", "super_admin@shipping.com", false, "Aya Ahmed Mahmoud", false, null, "SUPER_ADMIN@SHIPPING.COM", "SUPERADMIN", "AQAAAAIAAYagAAAAEPoL4R+easiULos6ABJHGpMsETeUM9dmg77INnL09618CmaLV3NPPsAImGwoZnxTEQ==", "01090370531", false, "a641e53c-dc82-4248-8fe4-c9f73bb48a4f", true, false, "SuperAdmin" },
+                    { "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d", 0, "Banha", "ed5c4f68-d8a6-4353-b902-d70859d52704", "trader@shipping.com", false, "Ahmed Khaled", false, null, "TRADER@SHIPPING.COM", "TRADER", "AQAAAAIAAYagAAAAEICoBV/61uxwws+QgF6AUCyXlF/ekx/LQKTG7hZNBnR4amVRuu1QJyYhzfSKIGxOyA==", "01556968642", false, "0aa746f7-ce90-4db2-a06f-376d4b655792", true, false, "Trader" },
+                    { "469136c1-8100-4cf9-ab46-ef304820c9bf", 0, "Tanta", "0867e0a6-0682-4739-860d-f12483d786c7", "representative@shipping.com", false, "Mohammed Ahmed", false, null, "REPRESENTATIVE@SHIPPING.COM", "REPRESENTATIVE", "AQAAAAIAAYagAAAAEKrYphS+OCE921LcExNYUzhL2X8+SUntZDB81yfun+ieyXh+1ZFejkmHs1iVUSD2rA==", "01015226007", false, "80c87f2b-aedc-45cb-a45f-cf2e33741ab5", true, false, "Representative" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Branches",
                 columns: new[] { "Id", "Date", "Name", "Status" },
-                values: new object[] { (byte)1, new DateTime(2023, 6, 22, 0, 22, 9, 414, DateTimeKind.Local).AddTicks(698), "Main Branch", true });
+                values: new object[] { (byte)1, new DateTime(2023, 6, 24, 0, 55, 37, 335, DateTimeKind.Local).AddTicks(6578), "Main Branch", true });
 
             migrationBuilder.InsertData(
                 table: "Privileges",
@@ -603,21 +598,21 @@ namespace graduationProject.DAL.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "f2740347-5bb0-423c-a7b6-8a05265680ef", "f2740347-5bb0-423c-a7b6-8a05265680ef" },
-                    { 2, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "SuperAdmin", "f2740347-5bb0-423c-a7b6-8a05265680ef" },
-                    { 3, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "8f1824df-6511-4a98-82bf-aefd767a8d7f", "f2740347-5bb0-423c-a7b6-8a05265680ef" },
-                    { 4, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "1a98dee7-83f1-4a99-a794-af3a55b4c918", "1a98dee7-83f1-4a99-a794-af3a55b4c918" },
-                    { 5, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "Trader", "1a98dee7-83f1-4a99-a794-af3a55b4c918" },
-                    { 6, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Trader", "1a98dee7-83f1-4a99-a794-af3a55b4c918" },
-                    { 7, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "5d529f11-6c5e-4d04-93ed-68eeaddddb1f", "5d529f11-6c5e-4d04-93ed-68eeaddddb1f" },
-                    { 8, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "Representative", "5d529f11-6c5e-4d04-93ed-68eeaddddb1f" },
-                    { 9, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Representative", "5d529f11-6c5e-4d04-93ed-68eeaddddb1f" }
+                    { 1, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "17d7aebd-e230-4f86-ab4a-4ce594bf0178", "17d7aebd-e230-4f86-ab4a-4ce594bf0178" },
+                    { 2, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "SuperAdmin", "17d7aebd-e230-4f86-ab4a-4ce594bf0178" },
+                    { 3, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", "17d7aebd-e230-4f86-ab4a-4ce594bf0178" },
+                    { 4, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d", "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d" },
+                    { 5, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "Trader", "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d" },
+                    { 6, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Trader", "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d" },
+                    { 7, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "469136c1-8100-4cf9-ab46-ef304820c9bf", "469136c1-8100-4cf9-ab46-ef304820c9bf" },
+                    { 8, "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata", "Representative", "469136c1-8100-4cf9-ab46-ef304820c9bf" },
+                    { 9, "http://schemas.microsoft.com/ws/2008/06/identity/claims/role", "Representative", "469136c1-8100-4cf9-ab46-ef304820c9bf" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "8f1824df-6511-4a98-82bf-aefd767a8d7f", "f2740347-5bb0-423c-a7b6-8a05265680ef" });
+                values: new object[] { "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", "17d7aebd-e230-4f86-ab4a-4ce594bf0178" });
 
             migrationBuilder.InsertData(
                 table: "Cities",
@@ -627,47 +622,47 @@ namespace graduationProject.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "ApplicationUserId", "BranchId", "Date", "RoleId" },
-                values: new object[] { "f2740347-5bb0-423c-a7b6-8a05265680ef", "f2740347-5bb0-423c-a7b6-8a05265680ef", (byte)1, new DateTime(2023, 6, 22, 0, 22, 9, 641, DateTimeKind.Local).AddTicks(5201), "8f1824df-6511-4a98-82bf-aefd767a8d7f" });
+                values: new object[] { "17d7aebd-e230-4f86-ab4a-4ce594bf0178", "17d7aebd-e230-4f86-ab4a-4ce594bf0178", (byte)1, new DateTime(2023, 6, 24, 0, 55, 37, 496, DateTimeKind.Local).AddTicks(2499), "2c3af6d4-175d-49ee-9897-6ff08a31c7c5" });
 
             migrationBuilder.InsertData(
                 table: "Representatives",
                 columns: new[] { "Id", "ApplicationUserId", "BranchId", "CompanyOrderRatio", "Date", "DiscountType" },
-                values: new object[] { "5d529f11-6c5e-4d04-93ed-68eeaddddb1f", "5d529f11-6c5e-4d04-93ed-68eeaddddb1f", (byte)1, 50.0, new DateTime(2023, 6, 22, 0, 22, 9, 915, DateTimeKind.Local).AddTicks(7591), 1 });
+                values: new object[] { "469136c1-8100-4cf9-ab46-ef304820c9bf", "469136c1-8100-4cf9-ab46-ef304820c9bf", (byte)1, 50.0, new DateTime(2023, 6, 24, 0, 55, 37, 792, DateTimeKind.Local).AddTicks(1920), 1 });
 
             migrationBuilder.InsertData(
                 table: "Role_Privileges",
                 columns: new[] { "Id", "AddPermission", "DeletePermission", "EditPermission", "PrivilegeId", "RoleId", "ViewPermission" },
                 values: new object[,]
                 {
-                    { 1, true, true, true, (byte)1, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 2, true, true, true, (byte)2, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 3, true, true, true, (byte)3, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 4, true, true, true, (byte)4, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 5, true, true, true, (byte)5, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 6, true, true, true, (byte)6, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 7, true, true, true, (byte)7, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 8, true, true, true, (byte)8, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 9, true, true, true, (byte)9, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 10, true, true, true, (byte)10, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 11, true, true, true, (byte)11, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 12, true, true, true, (byte)12, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true },
-                    { 13, true, true, true, (byte)13, "8f1824df-6511-4a98-82bf-aefd767a8d7f", true }
+                    { 1, true, true, true, (byte)1, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 2, true, true, true, (byte)2, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 3, true, true, true, (byte)3, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 4, true, true, true, (byte)4, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 5, true, true, true, (byte)5, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 6, true, true, true, (byte)6, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 7, true, true, true, (byte)7, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 8, true, true, true, (byte)8, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 9, true, true, true, (byte)9, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 10, true, true, true, (byte)10, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 11, true, true, true, (byte)11, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 12, true, true, true, (byte)12, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true },
+                    { 13, true, true, true, (byte)13, "2c3af6d4-175d-49ee-9897-6ff08a31c7c5", true }
                 });
 
             migrationBuilder.InsertData(
                 table: "RepresentativeStates",
                 columns: new[] { "Id", "RepresentativeId", "StateId" },
-                values: new object[] { 1, "5d529f11-6c5e-4d04-93ed-68eeaddddb1f", (byte)1 });
+                values: new object[] { 1, "469136c1-8100-4cf9-ab46-ef304820c9bf", (byte)1 });
 
             migrationBuilder.InsertData(
                 table: "Traders",
                 columns: new[] { "Id", "ApplicationUserId", "BranchId", "CityId", "Date", "RejectedOrderlossRatio", "StateId", "StoreName" },
-                values: new object[] { "1a98dee7-83f1-4a99-a794-af3a55b4c918", "1a98dee7-83f1-4a99-a794-af3a55b4c918", (byte)1, 1, new DateTime(2023, 6, 21, 21, 22, 9, 760, DateTimeKind.Utc).AddTicks(5669), 10.0, (byte)1, "Main Store" });
+                values: new object[] { "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d", "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d", (byte)1, 1, new DateTime(2023, 6, 24, 7, 55, 37, 639, DateTimeKind.Utc).AddTicks(5936), 10.0, (byte)1, "Main Store" });
 
             migrationBuilder.InsertData(
                 table: "SpecialPackages",
                 columns: new[] { "Id", "CityId", "ShippingCost", "StateId", "TraderId" },
-                values: new object[] { 1, 1, 40.0, (byte)1, "1a98dee7-83f1-4a99-a794-af3a55b4c918" });
+                values: new object[] { 1, 1, 40.0, (byte)1, "3dbaeb7e-32ea-44de-8776-e0bd1b182d3d" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -707,6 +702,18 @@ namespace graduationProject.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Branches_Name",
+                table: "Branches",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_Name",
+                table: "Cities",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_StateId",
@@ -794,6 +801,12 @@ namespace graduationProject.DAL.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShippingTypes_Name",
+                table: "ShippingTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SpecialPackages_CityId",
                 table: "SpecialPackages",
                 column: "CityId");
@@ -807,6 +820,12 @@ namespace graduationProject.DAL.Migrations
                 name: "IX_SpecialPackages_TraderId",
                 table: "SpecialPackages",
                 column: "TraderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_Name",
+                table: "States",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Traders_ApplicationUserId",
@@ -894,10 +913,6 @@ namespace graduationProject.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "States");
-
-            migrationBuilder.DropIndex(
-                name: "IX_States_Name",
-                table: "States");
         }
     }
 }
