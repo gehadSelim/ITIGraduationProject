@@ -111,64 +111,64 @@ namespace graduationProject.DAL.Migrations
                         {
                             Id = 1,
                             ClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                            ClaimValue = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f",
-                            UserId = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f"
+                            ClaimValue = "a6d3d80f-2a19-4092-81b4-dd2139c90d76",
+                            UserId = "a6d3d80f-2a19-4092-81b4-dd2139c90d76"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata",
                             ClaimValue = "SuperAdmin",
-                            UserId = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f"
+                            UserId = "a6d3d80f-2a19-4092-81b4-dd2139c90d76"
                         },
                         new
                         {
                             Id = 3,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
-                            UserId = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f"
+                            ClaimValue = "09b45995-dcc3-4705-b84a-4fafb871c191",
+                            UserId = "a6d3d80f-2a19-4092-81b4-dd2139c90d76"
                         },
                         new
                         {
                             Id = 4,
                             ClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                            ClaimValue = "56b84096-f76d-479c-b994-0b59d5b0407d",
-                            UserId = "56b84096-f76d-479c-b994-0b59d5b0407d"
+                            ClaimValue = "524418da-9d05-462c-ab13-fd0842902ab9",
+                            UserId = "524418da-9d05-462c-ab13-fd0842902ab9"
                         },
                         new
                         {
                             Id = 5,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata",
                             ClaimValue = "Trader",
-                            UserId = "56b84096-f76d-479c-b994-0b59d5b0407d"
+                            UserId = "524418da-9d05-462c-ab13-fd0842902ab9"
                         },
                         new
                         {
                             Id = 6,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
                             ClaimValue = "Trader",
-                            UserId = "56b84096-f76d-479c-b994-0b59d5b0407d"
+                            UserId = "524418da-9d05-462c-ab13-fd0842902ab9"
                         },
                         new
                         {
                             Id = 7,
                             ClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                            ClaimValue = "bc97e5df-6158-4bff-9aac-55171142b2d7",
-                            UserId = "bc97e5df-6158-4bff-9aac-55171142b2d7"
+                            ClaimValue = "0aae132f-db37-402e-9734-cf873c93921a",
+                            UserId = "0aae132f-db37-402e-9734-cf873c93921a"
                         },
                         new
                         {
                             Id = 8,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata",
                             ClaimValue = "Representative",
-                            UserId = "bc97e5df-6158-4bff-9aac-55171142b2d7"
+                            UserId = "0aae132f-db37-402e-9734-cf873c93921a"
                         },
                         new
                         {
                             Id = 9,
                             ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
                             ClaimValue = "Representative",
-                            UserId = "bc97e5df-6158-4bff-9aac-55171142b2d7"
+                            UserId = "0aae132f-db37-402e-9734-cf873c93921a"
                         });
                 });
 
@@ -211,8 +211,8 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f",
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc"
+                            UserId = "a6d3d80f-2a19-4092-81b4-dd2139c90d76",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191"
                         });
                 });
 
@@ -313,60 +313,60 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f",
+                            Id = "a6d3d80f-2a19-4092-81b4-dd2139c90d76",
                             AccessFailedCount = 0,
                             Address = "Banha",
-                            ConcurrencyStamp = "7e4e9b07-db6f-4e82-abc4-5cef9c4cb638",
+                            ConcurrencyStamp = "dc36207b-5926-4bb9-99f6-dd4044ba5ee8",
                             Email = "super_admin@shipping.com",
                             EmailConfirmed = false,
                             FullName = "Aya Ahmed Mahmoud",
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPER_ADMIN@SHIPPING.COM",
                             NormalizedUserName = "SUPERADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIIHy0pwsmYreDUQasCGIOF5qP6ABtpu6qW5CxlOEf6SP45d4btuy8QYgssrnYHo6A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJw94z7rmQC4iW/eZ2iTXeHMcsMBSNHLwdttrKXhSHQ2jUyM26RCcXyKSQhx5rk+5g==",
                             PhoneNumber = "01090370531",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "96a8dd8b-952c-4823-b9d9-0e25f5b10b4e",
+                            SecurityStamp = "8efe8274-fd1e-4e27-9cdd-de1c918d700c",
                             Status = true,
                             TwoFactorEnabled = false,
                             UserName = "SuperAdmin"
                         },
                         new
                         {
-                            Id = "56b84096-f76d-479c-b994-0b59d5b0407d",
+                            Id = "524418da-9d05-462c-ab13-fd0842902ab9",
                             AccessFailedCount = 0,
                             Address = "Banha",
-                            ConcurrencyStamp = "148b1452-acaf-4ac4-9d0d-c8004eeaf191",
+                            ConcurrencyStamp = "22cedd8c-a075-4c3c-9343-316954ef5afe",
                             Email = "trader@shipping.com",
                             EmailConfirmed = false,
                             FullName = "Ahmed Khaled",
                             LockoutEnabled = false,
                             NormalizedEmail = "TRADER@SHIPPING.COM",
                             NormalizedUserName = "TRADER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDWVbIh9+xRh7+DaLZcotrzLO3iLr3erIgktJSD4oDtIHHxWT/gZtRqt68UurLcJUQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOvF1CyKZG2JDL1EaOCEqmcYzxIEu1ds0k0HShfKq8868F6Dn7PhOCFj5iHvOoTuOg==",
                             PhoneNumber = "01556968642",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2fe9639e-6901-41d7-a5f6-95c4fe2897ab",
+                            SecurityStamp = "e2a06944-7b67-4a02-ae79-92604639e841",
                             Status = true,
                             TwoFactorEnabled = false,
                             UserName = "Trader"
                         },
                         new
                         {
-                            Id = "bc97e5df-6158-4bff-9aac-55171142b2d7",
+                            Id = "0aae132f-db37-402e-9734-cf873c93921a",
                             AccessFailedCount = 0,
                             Address = "Tanta",
-                            ConcurrencyStamp = "50665093-d9e7-4299-97da-e246843fdb1d",
+                            ConcurrencyStamp = "d6f06c10-c1ae-4a52-9fa5-fc3552cacee1",
                             Email = "representative@shipping.com",
                             EmailConfirmed = false,
                             FullName = "Mohammed Ahmed",
                             LockoutEnabled = false,
                             NormalizedEmail = "REPRESENTATIVE@SHIPPING.COM",
                             NormalizedUserName = "REPRESENTATIVE",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK5KLlGx/aRhLEl7t9PPl2WqGAZjomfiIV6RgNI9Ux5ZUfjIVx5KDf04KtiR/b8HlA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENzVxL1Ux+7rpRZaqbYhK5MKrbF89wFNS0k/WTfGae1iL/Vb1j5kBYjobQUAy8g91A==",
                             PhoneNumber = "01015226007",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e899cca6-392d-4d99-8c43-0bae5e9cea04",
+                            SecurityStamp = "e6b3ca1f-e003-4cf1-91dd-e3e827bde488",
                             Status = true,
                             TwoFactorEnabled = false,
                             UserName = "Representative"
@@ -406,7 +406,7 @@ namespace graduationProject.DAL.Migrations
                         new
                         {
                             Id = (byte)1,
-                            Date = new DateTime(2023, 6, 24, 15, 40, 54, 750, DateTimeKind.Local).AddTicks(2941),
+                            Date = new DateTime(2023, 6, 24, 17, 10, 18, 462, DateTimeKind.Local).AddTicks(4946),
                             Name = "Main Branch",
                             Status = true
                         });
@@ -485,11 +485,11 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f",
-                            ApplicationUserId = "a00237aa-f644-4b07-b8c2-c3a1c4e2b33f",
+                            Id = "a6d3d80f-2a19-4092-81b4-dd2139c90d76",
+                            ApplicationUserId = "a6d3d80f-2a19-4092-81b4-dd2139c90d76",
                             BranchId = (byte)1,
-                            Date = new DateTime(2023, 6, 24, 15, 40, 55, 12, DateTimeKind.Local).AddTicks(466),
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc"
+                            Date = new DateTime(2023, 6, 24, 17, 10, 18, 624, DateTimeKind.Local).AddTicks(2717),
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191"
                         });
                 });
 
@@ -566,7 +566,9 @@ namespace graduationProject.DAL.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<byte>("ShippingTypeId")
-                        .HasColumnType("tinyint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<byte>("StateId")
                         .HasColumnType("tinyint");
@@ -596,6 +598,34 @@ namespace graduationProject.DAL.Migrations
                     b.HasIndex("TraderId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdressDetails = "صناديد مركز طنطا",
+                            BranchId = (byte)1,
+                            CityId = 1,
+                            ClientName = "احمد علي",
+                            Comments = "",
+                            Date = new DateTime(2023, 6, 24, 17, 10, 19, 68, DateTimeKind.Local).AddTicks(6008),
+                            Email = "Ahmed@gmail.com",
+                            IsVillage = false,
+                            OrderCost = 10000.0,
+                            OrderShipingCost = 40.0,
+                            OrderStatus = 3,
+                            OrderType = 0,
+                            PaymentType = 0,
+                            Phone1 = "01001559260",
+                            ReceivedCost = 1000.0,
+                            ReceivedShipingCost = 40.0,
+                            RepresentativeID = "0aae132f-db37-402e-9734-cf873c93921a",
+                            ShippingTypeId = (byte)1,
+                            StateId = (byte)1,
+                            TotalCost = 10040.0,
+                            TotalWeight = 1.0,
+                            TraderId = "524418da-9d05-462c-ab13-fd0842902ab9"
+                        });
                 });
 
             modelBuilder.Entity("graduationProject.DAL.Data.Models.OrderItem", b =>
@@ -624,6 +654,24 @@ namespace graduationProject.DAL.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderId = 1,
+                            ProductName = "موبايل سامسونج",
+                            ProductQuantity = 1,
+                            ProductWeight = 0.75
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderId = 1,
+                            ProductName = " جراب موبايل سامسونج",
+                            ProductQuantity = 1,
+                            ProductWeight = 0.25
+                        });
                 });
 
             modelBuilder.Entity("graduationProject.DAL.Data.Models.Privilege", b =>
@@ -763,11 +811,11 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bc97e5df-6158-4bff-9aac-55171142b2d7",
-                            ApplicationUserId = "bc97e5df-6158-4bff-9aac-55171142b2d7",
+                            Id = "0aae132f-db37-402e-9734-cf873c93921a",
+                            ApplicationUserId = "0aae132f-db37-402e-9734-cf873c93921a",
                             BranchId = (byte)1,
                             CompanyOrderRatio = 50.0,
-                            Date = new DateTime(2023, 6, 24, 15, 40, 55, 559, DateTimeKind.Local).AddTicks(626),
+                            Date = new DateTime(2023, 6, 24, 17, 10, 19, 68, DateTimeKind.Local).AddTicks(5748),
                             DiscountType = 1
                         });
                 });
@@ -799,7 +847,7 @@ namespace graduationProject.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            RepresentativeId = "bc97e5df-6158-4bff-9aac-55171142b2d7",
+                            RepresentativeId = "0aae132f-db37-402e-9734-cf873c93921a",
                             StateId = (byte)1
                         });
                 });
@@ -847,7 +895,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)1,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -857,7 +905,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)2,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -867,7 +915,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)3,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -877,7 +925,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)4,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -887,7 +935,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)5,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -897,7 +945,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)6,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -907,7 +955,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)7,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -917,7 +965,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)8,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -927,7 +975,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)9,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -937,7 +985,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)10,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -947,7 +995,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)11,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -957,7 +1005,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)12,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         },
                         new
@@ -967,7 +1015,7 @@ namespace graduationProject.DAL.Migrations
                             DeletePermission = true,
                             EditPermission = true,
                             PrivilegeId = (byte)13,
-                            RoleId = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            RoleId = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             ViewPermission = true
                         });
                 });
@@ -1021,6 +1069,14 @@ namespace graduationProject.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("ShippingTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (byte)1,
+                            Cost = 0.0,
+                            Name = "شحن عادي"
+                        });
                 });
 
             modelBuilder.Entity("graduationProject.DAL.Data.Models.SpecialPackage", b =>
@@ -1061,7 +1117,7 @@ namespace graduationProject.DAL.Migrations
                             CityId = 1,
                             ShippingCost = 40.0,
                             StateId = (byte)1,
-                            TraderId = "56b84096-f76d-479c-b994-0b59d5b0407d"
+                            TraderId = "524418da-9d05-462c-ab13-fd0842902ab9"
                         });
                 });
 
@@ -1143,11 +1199,11 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "56b84096-f76d-479c-b994-0b59d5b0407d",
-                            ApplicationUserId = "56b84096-f76d-479c-b994-0b59d5b0407d",
+                            Id = "524418da-9d05-462c-ab13-fd0842902ab9",
+                            ApplicationUserId = "524418da-9d05-462c-ab13-fd0842902ab9",
                             BranchId = (byte)1,
                             CityId = 1,
-                            Date = new DateTime(2023, 6, 24, 12, 40, 55, 280, DateTimeKind.Utc).AddTicks(3160),
+                            Date = new DateTime(2023, 6, 24, 14, 10, 18, 867, DateTimeKind.Utc).AddTicks(5822),
                             RejectedOrderlossRatio = 10.0,
                             StateId = (byte)1,
                             StoreName = "Main Store"
@@ -1166,10 +1222,10 @@ namespace graduationProject.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "16676d47-ec18-4a70-9dcf-2285e7ae7fbc",
+                            Id = "09b45995-dcc3-4705-b84a-4fafb871c191",
                             Name = "SuperAdmin",
                             NormalizedName = "SUPERADMIN",
-                            Date = new DateTime(2023, 6, 24, 15, 40, 54, 750, DateTimeKind.Local).AddTicks(2549)
+                            Date = new DateTime(2023, 6, 24, 17, 10, 18, 462, DateTimeKind.Local).AddTicks(4618)
                         });
                 });
 

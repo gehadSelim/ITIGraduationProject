@@ -66,7 +66,7 @@ namespace graduationProject.Bl.Managers
             var signingCredentials = new SigningCredentials(key,
                 SecurityAlgorithms.HmacSha256Signature);
 
-            var expiry = DateTime.Now.AddDays(365);
+            var expiry = DateTime.Now.AddDays(1);
 
             var jwt = new JwtSecurityToken(
                     expires: expiry,

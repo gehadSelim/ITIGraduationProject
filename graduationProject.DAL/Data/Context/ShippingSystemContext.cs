@@ -504,6 +504,54 @@ public class ShippingSystemContext : IdentityDbContext<ApplicationUser>
         });
         #endregion
 
+        #region add Shipping Type 
+        ShippingType shippingType = new()
+        {
+            Id = 1,
+            Name = "شحن عادي",
+            Cost = 0
+        };
+        builder.Entity<ShippingType>().HasData(shippingType);
+        #endregion
+
+        #region add order
+        Order order = new()
+        {
+            Id = 1,
+            Date = DateTime.Now,
+            ClientName = "احمد علي",
+            Email = "Ahmed@gmail.com",
+            Phone1 = "01001559260",
+            AdressDetails = "صناديد مركز طنطا",
+            BranchId = branch.Id,
+            CityId = city.Id,
+            StateId = state.Id,
+            TraderId = traderUser.Id,
+            OrderCost = 10000,
+            OrderShipingCost = 40,
+            IsVillage = false,
+            TotalWeight = 1,
+            TotalCost = 10040,
+            OrderStatus = Shared.Enums.OrderStatus.ClientDelivered,
+            ShippingTypeId = shippingType.Id,
+            OrderType = Shared.Enums.OrderType.BranchDelivery,
+            RepresentativeID = representativeUser.Id,
+            PaymentType = Shared.Enums.PaymentType.mustPaid,
+            ReceivedCost = 1000,
+            ReceivedShipingCost = 40
+        };
+        builder.Entity<Order>().HasData(order);
+        #endregion
+
+        #region add Order Items
+        List<OrderItem> orderItems = new()
+        {
+            new(){Id= 1, ProductName = "موبايل سامسونج", ProductQuantity = 1, ProductWeight = 0.75, OrderId  = order.Id },
+            new(){Id= 2, ProductName = " جراب موبايل سامسونج", ProductQuantity = 1, ProductWeight = 0.25, OrderId  = order.Id }
+        };
+
+        builder.Entity<OrderItem>().HasData(orderItems);    
+        #endregion
 
         new BranchEntityTypeConfiguration().Configure(builder.Entity<Branch>());
         new CityEntityTypeConfiguration().Configure(builder.Entity<City>());

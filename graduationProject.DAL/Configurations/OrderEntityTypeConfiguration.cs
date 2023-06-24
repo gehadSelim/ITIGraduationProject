@@ -31,7 +31,11 @@ namespace graduationProject.DAL.Configurations
 
             builder
              .Property(e => e.BranchId)
-             .HasDefaultValue<byte>(1);
+             .HasDefaultValue(1);
+
+            builder
+               .Property(o => o.ShippingTypeId)
+               .HasDefaultValue(1);
         }
     }
 }
