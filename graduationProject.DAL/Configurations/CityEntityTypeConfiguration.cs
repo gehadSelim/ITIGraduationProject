@@ -16,10 +16,6 @@ namespace graduationProject.DAL.Configurations
             builder
                 .Property(c => c.Name)
                 .HasColumnType("nvarchar(75)");
-
-            builder
-               .HasIndex(st => st.Name)
-               .IsUnique();
         }
     }
 }

@@ -335,7 +335,7 @@ namespace graduationProject.Bl.Managers.OrderManager
         public async Task DeleteAsync(OrderWriteNewStatusDto entity)
         {
             var Model = _mapper.Map<Order>(entity);
-            _orderItemRepository.DeleteRange(Model.OrderItems.ToList());
+            //_orderItemRepository.DeleteRange(Model.OrderItems.ToList());
              _repository.DeleteById(Model);
             _repository.SaveChanges();
         }

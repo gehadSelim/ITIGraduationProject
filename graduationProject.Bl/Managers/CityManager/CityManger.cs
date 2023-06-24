@@ -19,8 +19,15 @@ namespace graduationProject.Bl.Managers.CityManager
         {
             _repository = repository;
         }
-        public async Task<CityWriteDto> AddAsync(CityWriteDto entity)
+        public async Task<CityWriteDto?> AddAsync(CityWriteDto entity)
         {
+            var existedCity = await _repository.GetByCriteriaAsync(c => c.Name == entity.Name);
+
+            if (existedCity != null && existedCity.StateId == entity.StateId)
+            {
+                throw new Exception("This city is already existed");
+            }
+
             City newCity = new()
             {
                 Name = entity.Name,
@@ -30,6 +37,7 @@ namespace graduationProject.Bl.Managers.CityManager
             await _repository.AddAsync(newCity);
             _repository.SaveChanges();
             return entity;
+
         }
 
         public async Task<IEnumerable<CityReadSimpleDto>> GetAllAsync()
@@ -102,20 +110,12 @@ namespace graduationProject.Bl.Managers.CityManager
 
         public async Task<CityUpdateDto> UpdateAsync(CityUpdateDto entity)
         {
-            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id, new[] {"State"} );  
-
-            if(entity.Status == true && oldCity.State.Status == true)
-            {
-                oldCity.Status = true;
-            }
-            else
-            {
-                oldCity.Status = false;
-            }
+            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id);  
 
             oldCity.Name = entity.Name;
             oldCity.ShipingCost = entity.ShippingCost;
             oldCity.StateId = entity.StateId;
+            oldCity.Status = entity.Status; 
 
            await _repository.UpdateAsync(oldCity);
             _repository.SaveChanges();
