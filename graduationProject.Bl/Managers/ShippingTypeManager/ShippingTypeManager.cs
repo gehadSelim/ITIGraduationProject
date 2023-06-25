@@ -32,6 +32,10 @@ namespace graduationProject.Bl.Managers
         public void Delete(byte id)
         {
             var entity = _repository.GetByCriteriaAsync(sh => sh.Id == id).Result;
+            if(id == 1)
+            {
+                throw new Exception("this type can't be deleted");
+            }
             _repository.DeleteById(entity);
             _repository.SaveChanges();
         }

@@ -21,9 +21,6 @@ namespace graduationProject.DAL.Configurations
                 .Property(e => e.Date)
                 .HasDefaultValueSql("GETDATE()");
 
-            builder
-                .Property(e => e.RoleId)
-                .IsRequired(false);
 
             builder
                 .Property(e => e.BranchId)
