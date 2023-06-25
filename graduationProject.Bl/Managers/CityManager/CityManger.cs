@@ -21,9 +21,9 @@ namespace graduationProject.Bl.Managers.CityManager
         }
         public async Task<CityWriteDto?> AddAsync(CityWriteDto entity)
         {
-            var existedCity = await _repository.GetByCriteriaAsync(c => c.Name == entity.Name);
+            var existedCity = await _repository.GetByCriteriaAsync(c => c.Name == entity.Name && c.StateId == entity.StateId);
 
-            if (existedCity != null && existedCity.StateId == entity.StateId)
+            if (existedCity != null)
             {
                 throw new Exception("This city is already existed");
             }
@@ -110,7 +110,18 @@ namespace graduationProject.Bl.Managers.CityManager
 
         public async Task<CityUpdateDto> UpdateAsync(CityUpdateDto entity)
         {
-            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id);  
+            City oldCity = await _repository.GetByCriteriaAsync(oc => oc.Id == entity.Id);
+
+            if(oldCity.Name != entity.Name)
+            {
+                var existedCity = await _repository.GetByCriteriaAsync(c => c.Name == entity.Name && c.StateId == entity.StateId && c.Id != entity.Id);
+
+
+                if (existedCity != null)
+                {
+                    throw new Exception("This city is already existed");
+                }
+            }
 
             oldCity.Name = entity.Name;
             oldCity.ShipingCost = entity.ShippingCost;
