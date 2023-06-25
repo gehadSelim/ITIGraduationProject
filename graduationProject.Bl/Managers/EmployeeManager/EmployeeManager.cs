@@ -336,6 +336,7 @@ namespace graduationProject.Bl.Managers
         {
             var employee = _repository.GetAllAsync().Result
                                       .Where(e => e.Id == userId)
+                                      .Include(e => e.ApplicationUser)
                                       .Include(e => e.Role)
                                       .ThenInclude(r => r.RolePrivileges)
                                       .ThenInclude(rp => rp.Privilege)
@@ -344,6 +345,11 @@ namespace graduationProject.Bl.Managers
             if (employee == null)
             {
                 return null;
+            }
+
+            if (employee.ApplicationUser.Status == false)
+            {
+                throw new Exception("Not Authorized");
             }
 
             var permissions = employee.Role.RolePrivileges.Select(r => new RolePrivilegesValidateDTO
