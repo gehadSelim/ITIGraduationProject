@@ -45,6 +45,11 @@ namespace graduationProject.Bl.Managers
                 }
             }
 
+            if(user.Status != true)
+            {
+                throw new Exception("User Not Allowed to login");
+            }
+
             bool isPasswordCorrect = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
 
             if (!isPasswordCorrect)
