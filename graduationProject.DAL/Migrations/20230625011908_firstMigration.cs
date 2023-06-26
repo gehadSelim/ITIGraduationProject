@@ -252,7 +252,7 @@ namespace graduationProject.DAL.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete : ReferentialAction.SetNull);
+                        onDelete : ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Employees_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,

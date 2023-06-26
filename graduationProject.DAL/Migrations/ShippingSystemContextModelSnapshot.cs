@@ -378,6 +378,7 @@ namespace graduationProject.DAL.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("RoleId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
